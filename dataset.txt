@@ -1,0 +1,3 @@
+# "C:\Users\royal\Downloads\Sample Churn analysis PYNB\WA_Fn-UseC_-Telco-Customer-Churn.csv"
+
+# Python path: "C:\Users\royal\Downloads\Sample Churn analysis PYNB\python-3.11.0-amd64.exe"
