@@ -1,0 +1,228 @@
+2025-11-29 15:35:22 - INFO - Loading customer data from: C:\Users\royal\Downloads\Sample Churn analysis PYNB\data\customers.csv
+2025-11-29 15:35:22 - INFO - Successfully loaded CSV: C:\Users\royal\Downloads\Sample Churn analysis PYNB\data\customers.csv (5000 rows)
+2025-11-29 15:35:22 - INFO - Dataframe sanitized: 5000 rows remaining
+2025-11-29 15:35:22 - INFO - Using configured churn column: Churn
+2025-11-29 15:35:22 - INFO - Churn column normalized to binary format
+2025-11-29 15:35:22 - INFO - Customer data loaded successfully: 5000 records
+2025-11-29 15:35:22 - INFO - Data loaded successfully for API
+2025-11-29 15:35:22 - INFO - Loading model from: C:\Users\royal\Downloads\Sample Churn analysis PYNB\models\churn_model.pkl
+2025-11-29 15:35:23 - INFO - Successfully loaded model: C:\Users\royal\Downloads\Sample Churn analysis PYNB\models\churn_model.pkl
+2025-11-29 15:35:23 - INFO - Model loaded successfully with 20 features
+2025-11-29 15:35:23 - INFO - Model loaded successfully for API
+2025-11-29 15:35:23 - INFO - ==================================================
+2025-11-29 15:35:23 - INFO - Starting Flask API Server
+2025-11-29 15:35:23 - INFO - ==================================================
+2025-11-29 15:35:23 - INFO - Data loaded: True
+2025-11-29 15:35:23 - INFO - Model loaded: True
+2025-11-29 15:35:23 - INFO - Server running on http://localhost:5000
+2025-11-29 15:35:23 - INFO - ==================================================
+2025-11-29 15:35:23 - INFO - Loading customer data from: C:\Users\royal\Downloads\Sample Churn analysis PYNB\data\customers.csv
+2025-11-29 15:35:23 - INFO - Successfully loaded CSV: C:\Users\royal\Downloads\Sample Churn analysis PYNB\data\customers.csv (5000 rows)
+2025-11-29 15:35:23 - INFO - Dataframe sanitized: 5000 rows remaining
+2025-11-29 15:35:23 - INFO - Using configured churn column: Churn
+2025-11-29 15:35:23 - INFO - Churn column normalized to binary format
+2025-11-29 15:35:23 - INFO - Customer data loaded successfully: 5000 records
+2025-11-29 15:35:23 - INFO - Data loaded successfully for API
+2025-11-29 15:35:23 - INFO - Loading model from: C:\Users\royal\Downloads\Sample Churn analysis PYNB\models\churn_model.pkl
+2025-11-29 15:35:24 - INFO - Successfully loaded model: C:\Users\royal\Downloads\Sample Churn analysis PYNB\models\churn_model.pkl
+2025-11-29 15:35:24 - INFO - Model loaded successfully with 20 features
+2025-11-29 15:35:24 - INFO - Model loaded successfully for API
+2025-11-29 15:35:24 - INFO - ==================================================
+2025-11-29 15:35:24 - INFO - Starting Flask API Server
+2025-11-29 15:35:24 - INFO - ==================================================
+2025-11-29 15:35:24 - INFO - Data loaded: True
+2025-11-29 15:35:24 - INFO - Model loaded: True
+2025-11-29 15:35:24 - INFO - Server running on http://localhost:5000
+2025-11-29 15:35:24 - INFO - ==================================================
+2025-11-29 15:35:28 - INFO - Loading customer data from: C:\Users\royal\Downloads\Sample Churn analysis PYNB\data\customers.csv
+2025-11-29 15:35:28 - INFO - Successfully loaded CSV: C:\Users\royal\Downloads\Sample Churn analysis PYNB\data\customers.csv (5000 rows)
+2025-11-29 15:35:28 - INFO - Dataframe sanitized: 5000 rows remaining
+2025-11-29 15:35:28 - INFO - Using configured churn column: Churn
+2025-11-29 15:35:28 - INFO - Churn column normalized to binary format
+2025-11-29 15:35:28 - INFO - Customer data loaded successfully: 5000 records
+2025-11-29 15:35:28 - INFO - Data loaded successfully for API
+2025-11-29 15:35:28 - INFO - Loading model from: C:\Users\royal\Downloads\Sample Churn analysis PYNB\models\churn_model.pkl
+2025-11-29 15:35:29 - INFO - Successfully loaded model: C:\Users\royal\Downloads\Sample Churn analysis PYNB\models\churn_model.pkl
+2025-11-29 15:35:29 - INFO - Model loaded successfully with 20 features
+2025-11-29 15:35:29 - INFO - Model loaded successfully for API
+2025-11-29 15:35:29 - INFO - ==================================================
+2025-11-29 15:35:29 - INFO - Starting Flask API Server
+2025-11-29 15:35:29 - INFO - ==================================================
+2025-11-29 15:35:29 - INFO - Data loaded: True
+2025-11-29 15:35:29 - INFO - Model loaded: True
+2025-11-29 15:35:29 - INFO - Server running on http://localhost:5000
+2025-11-29 15:35:29 - INFO - ==================================================
+2025-11-29 15:38:38 - INFO - Stats requested via API
+2025-11-29 15:38:38 - INFO - Chart data requested: 6 charts
+2025-11-29 15:40:45 - INFO - Prediction requested via API
+2025-11-29 15:40:45 - ERROR - Prediction error: could not convert string to float: 'CUST100014'
+2025-11-29 15:40:50 - INFO - Prediction requested via API
+2025-11-29 15:40:50 - ERROR - Prediction error: could not convert string to float: 'CUST100014'
+2025-11-29 15:41:24 - INFO - Prediction requested via API
+2025-11-29 15:41:25 - ERROR - Prediction error: could not convert string to float: 'CUST100014'
+2025-11-29 15:41:32 - INFO - Prediction requested via API
+2025-11-29 15:41:32 - ERROR - Prediction error: could not convert string to float: 'CUST100014'
+2025-11-29 15:41:55 - INFO - Loading customer data from: C:\Users\royal\Downloads\Sample Churn analysis PYNB\data\customers.csv
+2025-11-29 15:41:56 - INFO - Successfully loaded CSV: C:\Users\royal\Downloads\Sample Churn analysis PYNB\data\customers.csv (5000 rows)
+2025-11-29 15:41:56 - INFO - Dataframe sanitized: 5000 rows remaining
+2025-11-29 15:41:56 - INFO - Using configured churn column: Churn
+2025-11-29 15:41:56 - INFO - Churn column normalized to binary format
+2025-11-29 15:41:56 - INFO - Customer data loaded successfully: 5000 records
+2025-11-29 15:41:56 - INFO - Data loaded successfully for API
+2025-11-29 15:41:56 - INFO - Loading model from: C:\Users\royal\Downloads\Sample Churn analysis PYNB\models\churn_model.pkl
+2025-11-29 15:41:56 - INFO - Successfully loaded model: C:\Users\royal\Downloads\Sample Churn analysis PYNB\models\churn_model.pkl
+2025-11-29 15:41:56 - INFO - Model loaded successfully with 20 features
+2025-11-29 15:41:56 - INFO - Model loaded successfully for API
+2025-11-29 15:41:56 - INFO - ==================================================
+2025-11-29 15:41:56 - INFO - Starting Flask API Server
+2025-11-29 15:41:56 - INFO - ==================================================
+2025-11-29 15:41:56 - INFO - Data loaded: True
+2025-11-29 15:41:56 - INFO - Model loaded: True
+2025-11-29 15:41:56 - INFO - Server running on http://localhost:5000
+2025-11-29 15:41:56 - INFO - ==================================================
+2025-11-29 15:42:18 - INFO - Loading customer data from: C:\Users\royal\Downloads\Sample Churn analysis PYNB\data\customers.csv
+2025-11-29 15:42:18 - INFO - Successfully loaded CSV: C:\Users\royal\Downloads\Sample Churn analysis PYNB\data\customers.csv (5000 rows)
+2025-11-29 15:42:18 - INFO - Dataframe sanitized: 5000 rows remaining
+2025-11-29 15:42:18 - INFO - Using configured churn column: Churn
+2025-11-29 15:42:18 - INFO - Churn column normalized to binary format
+2025-11-29 15:42:18 - INFO - Customer data loaded successfully: 5000 records
+2025-11-29 15:42:18 - INFO - Data loaded successfully for API
+2025-11-29 15:42:18 - INFO - Loading model from: C:\Users\royal\Downloads\Sample Churn analysis PYNB\models\churn_model.pkl
+2025-11-29 15:42:19 - INFO - Successfully loaded model: C:\Users\royal\Downloads\Sample Churn analysis PYNB\models\churn_model.pkl
+2025-11-29 15:42:19 - INFO - Model loaded successfully with 20 features
+2025-11-29 15:42:19 - INFO - Model loaded successfully for API
+2025-11-29 15:42:19 - INFO - ==================================================
+2025-11-29 15:42:19 - INFO - Starting Flask API Server
+2025-11-29 15:42:19 - INFO - ==================================================
+2025-11-29 15:42:19 - INFO - Data loaded: True
+2025-11-29 15:42:19 - INFO - Model loaded: True
+2025-11-29 15:42:19 - INFO - Server running on http://localhost:5000
+2025-11-29 15:42:19 - INFO - ==================================================
+2025-11-29 15:42:31 - INFO - Loading customer data from: C:\Users\royal\Downloads\Sample Churn analysis PYNB\data\customers.csv
+2025-11-29 15:42:31 - INFO - Successfully loaded CSV: C:\Users\royal\Downloads\Sample Churn analysis PYNB\data\customers.csv (5000 rows)
+2025-11-29 15:42:31 - INFO - Dataframe sanitized: 5000 rows remaining
+2025-11-29 15:42:31 - INFO - Using configured churn column: Churn
+2025-11-29 15:42:31 - INFO - Churn column normalized to binary format
+2025-11-29 15:42:31 - INFO - Customer data loaded successfully: 5000 records
+2025-11-29 15:42:31 - INFO - Data loaded successfully for API
+2025-11-29 15:42:31 - INFO - Loading model from: C:\Users\royal\Downloads\Sample Churn analysis PYNB\models\churn_model.pkl
+2025-11-29 15:42:32 - INFO - Successfully loaded model: C:\Users\royal\Downloads\Sample Churn analysis PYNB\models\churn_model.pkl
+2025-11-29 15:42:32 - INFO - Model loaded successfully with 20 features
+2025-11-29 15:42:32 - INFO - Model loaded successfully for API
+2025-11-29 15:42:32 - INFO - ==================================================
+2025-11-29 15:42:32 - INFO - Starting Flask API Server
+2025-11-29 15:42:32 - INFO - ==================================================
+2025-11-29 15:42:32 - INFO - Data loaded: True
+2025-11-29 15:42:32 - INFO - Model loaded: True
+2025-11-29 15:42:32 - INFO - Server running on http://localhost:5000
+2025-11-29 15:42:32 - INFO - ==================================================
+2025-11-29 15:42:56 - INFO - Loading customer data from: C:\Users\royal\Downloads\Sample Churn analysis PYNB\data\customers.csv
+2025-11-29 15:42:56 - INFO - Successfully loaded CSV: C:\Users\royal\Downloads\Sample Churn analysis PYNB\data\customers.csv (5000 rows)
+2025-11-29 15:42:56 - INFO - Dataframe sanitized: 5000 rows remaining
+2025-11-29 15:42:56 - INFO - Using configured churn column: Churn
+2025-11-29 15:42:56 - INFO - Churn column normalized to binary format
+2025-11-29 15:42:56 - INFO - Customer data loaded successfully: 5000 records
+2025-11-29 15:42:56 - INFO - Data loaded successfully for API
+2025-11-29 15:42:56 - INFO - Loading model from: C:\Users\royal\Downloads\Sample Churn analysis PYNB\models\churn_model.pkl
+2025-11-29 15:42:57 - INFO - Successfully loaded model: C:\Users\royal\Downloads\Sample Churn analysis PYNB\models\churn_model.pkl
+2025-11-29 15:42:57 - INFO - Model loaded successfully with 20 features
+2025-11-29 15:42:57 - INFO - Model loaded successfully for API
+2025-11-29 15:42:57 - INFO - ==================================================
+2025-11-29 15:42:57 - INFO - Starting Flask API Server
+2025-11-29 15:42:57 - INFO - ==================================================
+2025-11-29 15:42:57 - INFO - Data loaded: True
+2025-11-29 15:42:57 - INFO - Model loaded: True
+2025-11-29 15:42:57 - INFO - Server running on http://localhost:5000
+2025-11-29 15:42:57 - INFO - ==================================================
+2025-11-29 15:42:58 - INFO - Loading customer data from: C:\Users\royal\Downloads\Sample Churn analysis PYNB\data\customers.csv
+2025-11-29 15:42:58 - INFO - Successfully loaded CSV: C:\Users\royal\Downloads\Sample Churn analysis PYNB\data\customers.csv (5000 rows)
+2025-11-29 15:42:58 - INFO - Dataframe sanitized: 5000 rows remaining
+2025-11-29 15:42:58 - INFO - Using configured churn column: Churn
+2025-11-29 15:42:58 - INFO - Churn column normalized to binary format
+2025-11-29 15:42:58 - INFO - Customer data loaded successfully: 5000 records
+2025-11-29 15:42:58 - INFO - Data loaded successfully for API
+2025-11-29 15:42:58 - INFO - Loading model from: C:\Users\royal\Downloads\Sample Churn analysis PYNB\models\churn_model.pkl
+2025-11-29 15:42:59 - INFO - Successfully loaded model: C:\Users\royal\Downloads\Sample Churn analysis PYNB\models\churn_model.pkl
+2025-11-29 15:42:59 - INFO - Model loaded successfully with 20 features
+2025-11-29 15:42:59 - INFO - Model loaded successfully for API
+2025-11-29 15:42:59 - INFO - ==================================================
+2025-11-29 15:42:59 - INFO - Starting Flask API Server
+2025-11-29 15:42:59 - INFO - ==================================================
+2025-11-29 15:42:59 - INFO - Data loaded: True
+2025-11-29 15:42:59 - INFO - Model loaded: True
+2025-11-29 15:42:59 - INFO - Server running on http://localhost:5000
+2025-11-29 15:42:59 - INFO - ==================================================
+2025-11-29 15:44:12 - INFO - Stats requested via API
+2025-11-29 15:44:12 - INFO - Chart data requested: 6 charts
+2025-11-29 15:44:22 - INFO - Prediction requested via API
+2025-11-29 15:44:22 - ERROR - Invalid prediction input: Missing required fields: CustomerID, ChurnProb
+2025-11-29 15:44:39 - INFO - Stats requested via API
+2025-11-29 15:44:40 - INFO - Chart data requested: 6 charts
+2025-11-29 15:45:16 - INFO - Stats requested via API
+2025-11-29 15:45:16 - INFO - Chart data requested: 6 charts
+2025-11-29 15:45:19 - INFO - Prediction requested via API
+2025-11-29 15:45:19 - ERROR - Invalid prediction input: Missing required fields: CustomerID, ChurnProb
+2025-11-29 15:45:57 - INFO - Loading customer data from: C:\Users\royal\Downloads\Sample Churn analysis PYNB\data\customers.csv
+2025-11-29 15:45:57 - INFO - Successfully loaded CSV: C:\Users\royal\Downloads\Sample Churn analysis PYNB\data\customers.csv (5000 rows)
+2025-11-29 15:45:57 - INFO - Dataframe sanitized: 5000 rows remaining
+2025-11-29 15:45:57 - INFO - Using configured churn column: Churn
+2025-11-29 15:45:57 - INFO - Churn column normalized to binary format
+2025-11-29 15:45:57 - INFO - Customer data loaded successfully: 5000 records
+2025-11-29 15:45:57 - INFO - Data loaded successfully for API
+2025-11-29 15:45:57 - INFO - Loading model from: C:\Users\royal\Downloads\Sample Churn analysis PYNB\models\churn_model.pkl
+2025-11-29 15:45:58 - INFO - Successfully loaded model: C:\Users\royal\Downloads\Sample Churn analysis PYNB\models\churn_model.pkl
+2025-11-29 15:45:58 - INFO - Model loaded successfully with 20 features
+2025-11-29 15:45:58 - INFO - Model loaded successfully for API
+2025-11-29 15:45:58 - INFO - ==================================================
+2025-11-29 15:45:58 - INFO - Starting Flask API Server
+2025-11-29 15:45:58 - INFO - ==================================================
+2025-11-29 15:45:58 - INFO - Data loaded: True
+2025-11-29 15:45:58 - INFO - Model loaded: True
+2025-11-29 15:45:58 - INFO - Server running on http://localhost:5000
+2025-11-29 15:45:58 - INFO - ==================================================
+2025-11-29 15:46:22 - INFO - Loading customer data from: C:\Users\royal\Downloads\Sample Churn analysis PYNB\data\customers.csv
+2025-11-29 15:46:22 - INFO - Successfully loaded CSV: C:\Users\royal\Downloads\Sample Churn analysis PYNB\data\customers.csv (5000 rows)
+2025-11-29 15:46:22 - INFO - Dataframe sanitized: 5000 rows remaining
+2025-11-29 15:46:22 - INFO - Using configured churn column: Churn
+2025-11-29 15:46:22 - INFO - Churn column normalized to binary format
+2025-11-29 15:46:22 - INFO - Customer data loaded successfully: 5000 records
+2025-11-29 15:46:22 - INFO - Data loaded successfully for API
+2025-11-29 15:46:22 - INFO - Loading model from: C:\Users\royal\Downloads\Sample Churn analysis PYNB\models\churn_model.pkl
+2025-11-29 15:46:23 - INFO - Successfully loaded model: C:\Users\royal\Downloads\Sample Churn analysis PYNB\models\churn_model.pkl
+2025-11-29 15:46:23 - INFO - Model loaded successfully with 20 features
+2025-11-29 15:46:23 - INFO - Model loaded successfully for API
+2025-11-29 15:46:23 - INFO - ==================================================
+2025-11-29 15:46:23 - INFO - Starting Flask API Server
+2025-11-29 15:46:23 - INFO - ==================================================
+2025-11-29 15:46:23 - INFO - Data loaded: True
+2025-11-29 15:46:23 - INFO - Model loaded: True
+2025-11-29 15:46:23 - INFO - Server running on http://localhost:5000
+2025-11-29 15:46:23 - INFO - ==================================================
+2025-11-29 15:46:24 - INFO - Loading customer data from: C:\Users\royal\Downloads\Sample Churn analysis PYNB\data\customers.csv
+2025-11-29 15:46:24 - INFO - Successfully loaded CSV: C:\Users\royal\Downloads\Sample Churn analysis PYNB\data\customers.csv (5000 rows)
+2025-11-29 15:46:24 - INFO - Dataframe sanitized: 5000 rows remaining
+2025-11-29 15:46:24 - INFO - Using configured churn column: Churn
+2025-11-29 15:46:24 - INFO - Churn column normalized to binary format
+2025-11-29 15:46:24 - INFO - Customer data loaded successfully: 5000 records
+2025-11-29 15:46:24 - INFO - Data loaded successfully for API
+2025-11-29 15:46:24 - INFO - Loading model from: C:\Users\royal\Downloads\Sample Churn analysis PYNB\models\churn_model.pkl
+2025-11-29 15:46:25 - INFO - Successfully loaded model: C:\Users\royal\Downloads\Sample Churn analysis PYNB\models\churn_model.pkl
+2025-11-29 15:46:25 - INFO - Model loaded successfully with 20 features
+2025-11-29 15:46:25 - INFO - Model loaded successfully for API
+2025-11-29 15:46:25 - INFO - ==================================================
+2025-11-29 15:46:25 - INFO - Starting Flask API Server
+2025-11-29 15:46:25 - INFO - ==================================================
+2025-11-29 15:46:25 - INFO - Data loaded: True
+2025-11-29 15:46:25 - INFO - Model loaded: True
+2025-11-29 15:46:25 - INFO - Server running on http://localhost:5000
+2025-11-29 15:46:25 - INFO - ==================================================
+2025-11-29 15:47:19 - INFO - Stats requested via API
+2025-11-29 15:47:19 - INFO - Chart data requested: 6 charts
+2025-11-29 15:47:22 - INFO - Prediction requested via API
+2025-11-29 15:47:22 - ERROR - Prediction error: The feature names should match those that were passed during fit.
+Feature names must be in the same order as they were in fit.
+
+2025-11-29 15:47:29 - INFO - Prediction requested via API
+2025-11-29 15:47:29 - ERROR - Prediction error: The feature names should match those that were passed during fit.
+Feature names must be in the same order as they were in fit.
+
