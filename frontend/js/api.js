@@ -72,6 +72,37 @@ const API = {
             method: 'POST',
             body: JSON.stringify(inputData)
         });
+    },
+    
+    /**
+     * Get complaints statistics
+     */
+    async getComplaintsStats() {
+        return this.request(getApiUrl('complaintsStats'));
+    },
+    
+    /**
+     * Get complaints chart data
+     */
+    async getComplaintsChartData() {
+        return this.request(getApiUrl('complaintsCharts'));
+    },
+    
+    /**
+     * Get all complaints
+     */
+    async getComplaints() {
+        return this.request(getApiUrl('complaints'));
+    },
+    
+    /**
+     * Analyze sentiment of text
+     */
+    async analyzeSentiment(text) {
+        return this.request(getApiUrl('analyzeSentiment'), {
+            method: 'POST',
+            body: JSON.stringify({ text })
+        });
     }
 };
 

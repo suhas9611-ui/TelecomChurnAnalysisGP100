@@ -21,7 +21,7 @@ from app.utils.config_loader import config
 app = Flask(__name__, static_folder='frontend', static_url_path='')
 CORS(app)
 
-# Initialize components
+# input components
 data_loader = DataLoader()
 model_manager = ModelManager()
 
@@ -49,11 +49,30 @@ try:
 except Exception as e:
     logger.error(f"Error loading model: {e}")
 
+# Loads complaints data
+complaints_data = None
+complaints_loaded = False
+
+try:
+    import pandas as pd
+    complaints_df = pd.read_csv('data/complaints.csv')
+    complaints_data = complaints_df
+    complaints_loaded = True
+    logger.info(f"Complaints data loaded: {len(complaints_df)} records")
+except Exception as e:
+    logger.error(f"Failed to load complaints data: {e}")
+
 
 @app.route('/')
 def index():
     """Serve the main HTML page"""
     return send_from_directory(app.static_folder, 'index.html')
+
+
+@app.route('/complaints.html')
+def complaints():
+    """Serve the complaints HTML page"""
+    return send_from_directory(app.static_folder, 'complaints.html')
 
 
 @app.route('/api/health', methods=['GET'])
@@ -159,6 +178,14 @@ def get_model_features():
                 continue
                 
             options = model_manager.get_categorical_options(col)
+            
+            # Add "None" as first option for all categorical fields
+            if options and len(options) > 0:
+                # Check if "None" is already in options (case-insensitive)
+                has_none = any(opt.lower() == 'none' for opt in options)
+                if not has_none:
+                    options = ['None'] + list(options)
+            
             feature = {
                 'name': col,
                 'type': 'categorical' if options else 'numeric',
@@ -201,11 +228,8 @@ def predict():
         input_data = request.json
         logger.info(f"Prediction requested via API")
         
-        # Add dummy values for excluded columns if model needs them
-        if 'CustomerID' not in input_data and 'CustomerID' in model_manager.model_columns:
-            input_data['CustomerID'] = 'CUST000000'
-        if 'ChurnProb' not in input_data and 'ChurnProb' in model_manager.model_columns:
-            input_data['ChurnProb'] = 0.0
+        # Note: CustomerID and ChurnProb are excluded in model_manager.predict()
+        # No need to add them here as they will be filtered out
         
         # Make prediction
         success, result, error = model_manager.predict(input_data)
@@ -217,6 +241,123 @@ def predict():
         
     except Exception as e:
         logger.error(f"Error making prediction: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/complaints/stats', methods=['GET'])
+def get_complaints_stats():
+    """Get complaints statistics"""
+    if not complaints_loaded:
+        return jsonify({'error': 'Complaints data not loaded'}), 500
+    
+    try:
+        stats = {
+            'total': len(complaints_data),
+            'negative': len(complaints_data[complaints_data['Sentiment'] == 'Negative']),
+            'neutral': len(complaints_data[complaints_data['Sentiment'] == 'Neutral']),
+            'positive': len(complaints_data[complaints_data['Sentiment'] == 'Positive'])
+        }
+        logger.info("Complaints stats requested via API")
+        return jsonify(stats)
+    except Exception as e:
+        logger.error(f"Error getting complaints stats: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/complaints/charts', methods=['GET'])
+def get_complaints_chart_data():
+    """Get data for complaints charts"""
+    if not complaints_loaded:
+        return jsonify({'error': 'Complaints data not loaded'}), 500
+    
+    try:
+        charts = []
+        
+        # Sentiment distribution
+        sentiment_counts = complaints_data['Sentiment'].value_counts()
+        charts.append({
+            'title': 'Complaints by Sentiment',
+            'column': 'Sentiment',
+            'data': [{'label': k, 'value': int(v)} for k, v in sentiment_counts.items()]
+        })
+        
+        # Category distribution
+        category_counts = complaints_data['IssueCategory'].value_counts()
+        charts.append({
+            'title': 'Complaints by Category',
+            'column': 'IssueCategory',
+            'data': [{'label': k, 'value': int(v)} for k, v in category_counts.items()]
+        })
+        
+        # Channel distribution
+        channel_counts = complaints_data['Channel'].value_counts()
+        charts.append({
+            'title': 'Complaints by Channel',
+            'column': 'Channel',
+            'data': [{'label': k, 'value': int(v)} for k, v in channel_counts.items()]
+        })
+        
+        logger.info(f"Complaints chart data requested: {len(charts)} charts")
+        return jsonify({'charts': charts})
+    except Exception as e:
+        logger.error(f"Error getting complaints chart data: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/complaints', methods=['GET'])
+def get_complaints():
+    """Get all complaints"""
+    if not complaints_loaded:
+        return jsonify({'error': 'Complaints data not loaded'}), 500
+    
+    try:
+        complaints_list = complaints_data.to_dict('records')
+        logger.info(f"Complaints data requested: {len(complaints_list)} records")
+        return jsonify({'complaints': complaints_list})
+    except Exception as e:
+        logger.error(f"Error getting complaints: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/complaints/analyze-sentiment', methods=['POST'])
+def analyze_sentiment():
+    """Analyze sentiment of complaint text"""
+    try:
+        data = request.json
+        text = data.get('text', '')
+        
+        if not text:
+            return jsonify({'error': 'No text provided'}), 400
+        
+        # Simple sentiment analysis based on keywords
+        # In production, use a proper NLP model
+        negative_words = ['slow', 'bad', 'poor', 'terrible', 'awful', 'failed', 'issue', 'problem', 
+                         'disappointed', 'frustrat', 'angry', 'worst', 'horrible', 'useless']
+        positive_words = ['good', 'great', 'excellent', 'happy', 'satisfied', 'resolved', 'thank',
+                         'amazing', 'wonderful', 'perfect', 'love', 'best']
+        
+        text_lower = text.lower()
+        negative_count = sum(1 for word in negative_words if word in text_lower)
+        positive_count = sum(1 for word in positive_words if word in text_lower)
+        
+        if negative_count > positive_count:
+            sentiment = 'Negative'
+            confidence = min(0.6 + (negative_count * 0.1), 0.95)
+        elif positive_count > negative_count:
+            sentiment = 'Positive'
+            confidence = min(0.6 + (positive_count * 0.1), 0.95)
+        else:
+            sentiment = 'Neutral'
+            confidence = 0.7
+        
+        logger.info(f"Sentiment analyzed: {sentiment} (confidence: {confidence:.2f})")
+        return jsonify({
+            'sentiment': sentiment,
+            'confidence': confidence,
+            'text': text
+        })
+    except Exception as e:
+        logger.error(f"Error analyzing sentiment: {e}")
         return jsonify({'error': str(e)}), 500
 
 

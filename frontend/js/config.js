@@ -12,7 +12,11 @@ const CONFIG = {
         stats: '/stats',
         charts: '/charts',
         modelFeatures: '/model/features',
-        predict: '/predict'
+        predict: '/predict',
+        complaintsStats: '/complaints/stats',
+        complaintsCharts: '/complaints/charts',
+        complaints: '/complaints',
+        analyzeSentiment: '/complaints/analyze-sentiment'
     },
     
     colors: {

@@ -18,9 +18,12 @@
                 <span class="icon">📊</span>
                 <span id="dashboard-title">Customer Churn Dashboard</span>
             </h1>
+            <nav class="header-nav">
+                <a href="index.html" class="nav-link active">🏠 Churn Dashboard</a>
+                <a href="complaints.html" class="nav-link">📋 Complaints</a>
+            </nav>
         </div>
     </header>
-
     <!-- Main Content -->
     <main class="main-content">
         <div class="container">
@@ -67,7 +70,7 @@
             <!-- Prediction Section -->
             <section class="prediction-section">
                 <h2 class="section-title">🔮 Custom Churn Prediction</h2>
-                <p class="section-description">Enter complete customer information for accurate churn prediction:</p>
+                <p class="section-description">Enter customer information and predict churn for individual sections or all combined:</p>
                 
                 <form id="prediction-form" class="prediction-form">
                     <div id="form-fields" class="form-grid">
@@ -75,8 +78,8 @@
                     </div>
                     
                     <div class="form-actions">
-                        <button type="submit" class="btn btn-primary">
-                            🎯 Predict Churn Probability
+                        <button type="submit" class="btn btn-primary btn-large">
+                            🎯 Predict with All Data
                         </button>
                         <button type="reset" class="btn btn-secondary">
                             🔄 Reset Form
@@ -87,6 +90,10 @@
                 <!-- Prediction Result -->
                 <div id="prediction-result" class="prediction-result hidden">
                     <h3 class="result-title">📊 Prediction Result</h3>
+                    
+                    <div class="result-header">
+                        <span class="result-section-label" id="result-section-label">All Sections</span>
+                    </div>
                     
                     <div class="result-metric">
                         <span class="result-label">Churn Probability:</span>

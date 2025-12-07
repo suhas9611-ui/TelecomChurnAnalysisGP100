@@ -64,6 +64,31 @@ class DataValidator:
         return df
 
 class PredictionValidator:
+    # Define validation rules based on training data
+    VALIDATION_RULES = {
+        'Age': {'min': 18, 'max': 100, 'type': 'numeric'},
+        'TenureMonths': {'min': 0, 'max': 120, 'type': 'numeric'},
+        'MonthlyCharges': {'min': 0, 'max': 2000, 'type': 'numeric'},
+        'TotalCharges': {'min': 0, 'max': 150000, 'type': 'numeric'},
+        'SupportCallsLast90d': {'min': 0, 'max': 50, 'type': 'numeric'},
+        'AvgDownlinkMbps': {'min': 0, 'max': 1000, 'type': 'numeric'},
+    }
+    
+    CATEGORICAL_VALUES = {
+        'Gender': ['Male', 'Female', 'None'],
+        'PlanType': ['Prepaid', 'Postpaid', 'None'],
+        'ContractType': ['Month-to-month', 'One year', 'Two year', 'None'],
+        'PhoneService': ['Yes', 'No', 'None'],
+        'MultipleLines': ['Yes', 'No', 'None'],
+        'InternetService': ['DSL', 'Fiber', 'None'],
+        'OnlineSecurity': ['Yes', 'No', 'None'],
+        'OnlineBackup': ['Yes', 'No', 'None'],
+        'DeviceProtection': ['Yes', 'No', 'None'],
+        'TechSupport': ['Yes', 'No', 'None'],
+        'PaymentMethod': ['UPI', 'Card', 'Wallet', 'BankTransfer', 'None'],
+        'Region': ['North', 'South', 'East', 'West', 'None']
+    }
+    
     @staticmethod
     def validate_input_data(input_data, required_columns):
         if not input_data:
@@ -72,5 +97,77 @@ class PredictionValidator:
         missing = [col for col in required_columns if col not in input_data]
         if missing:
             return False, f"Missing fields: {', '.join(missing)}"
+        
+        return True, None
+    
+    @staticmethod
+    def validate_input_ranges(input_data):
+        """Validate that input values are within acceptable ranges"""
+        errors = []
+        
+        # Validate CustomerID format and range
+        if 'CustomerID' in input_data:
+            cust_id = str(input_data['CustomerID'])
+            if cust_id.startswith('CUST'):
+                try:
+                    # Extract numeric part
+                    numeric_part = int(cust_id.replace('CUST', ''))
+                    # CustomerIDs in training data range from CUST100000 to approximately CUST110000
+                    if numeric_part < 100000:
+                        errors.append(
+                            f"CustomerID {cust_id} is below minimum allowed value CUST100000"
+                        )
+                    elif numeric_part > 200000:
+                        errors.append(
+                            f"CustomerID {cust_id} exceeds maximum allowed value CUST200000"
+                        )
+                except (ValueError, TypeError):
+                    errors.append(
+                        f"CustomerID {cust_id} has invalid format. Expected format: CUSTXXXXXX"
+                    )
+            elif cust_id.lower() != 'none' and cust_id != '':
+                errors.append(
+                    f"CustomerID {cust_id} has invalid format. Expected format: CUSTXXXXXX"
+                )
+        
+        # Validate numeric fields
+        for field, rules in PredictionValidator.VALIDATION_RULES.items():
+            if field in input_data:
+                value = input_data[field]
+                
+                # Skip if not numeric (might be string that needs conversion)
+                if not isinstance(value, (int, float)):
+                    try:
+                        value = float(value)
+                    except (ValueError, TypeError):
+                        continue
+                
+                # Check min/max bounds
+                if value < rules['min']:
+                    errors.append(
+                        f"{field} value {value} is below minimum allowed value {rules['min']}"
+                    )
+                elif value > rules['max']:
+                    errors.append(
+                        f"{field} value {value} exceeds maximum allowed value {rules['max']}"
+                    )
+        
+        # Validate categorical fields
+        for field, valid_values in PredictionValidator.CATEGORICAL_VALUES.items():
+            if field in input_data:
+                value = input_data[field]
+                
+                # Skip if value is None, empty, or the string "None" (user selected None option)
+                if value is None or value == '' or str(value).lower() == 'none':
+                    continue
+                
+                # Check if value is in allowed list
+                if str(value) not in valid_values:
+                    errors.append(
+                        f"{field} value '{value}' is not valid. Allowed values: {', '.join(valid_values)}"
+                    )
+        
+        if errors:
+            return False, "; ".join(errors)
         
         return True, None

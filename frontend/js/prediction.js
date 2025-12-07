@@ -5,6 +5,8 @@
 
 const Prediction = {
     formData: {},
+    allFeatures: [],
+    featureDefaults: {},
     
     /**
      * Load and render prediction form with custom grouping
@@ -18,6 +20,10 @@ const Prediction = {
                 container.innerHTML = '<p class="text-center">Model not available</p>';
                 return;
             }
+            
+            // Store all features for default value generation
+            this.allFeatures = data.features;
+            this.generateDefaultValues();
             
             // Clear loading message
             container.innerHTML = '';
@@ -39,13 +45,45 @@ const Prediction = {
     },
     
     /**
+     * Generate default values for all features
+     */
+    generateDefaultValues() {
+        // Add CustomerID default
+        this.featureDefaults['CustomerID'] = 'CUST000000';
+        
+        this.allFeatures.forEach(feature => {
+            if (feature.type === 'categorical' && feature.options.length > 0) {
+                // Use first option as default
+                this.featureDefaults[feature.name] = feature.options[0];
+            } else {
+                // Use median/average values for numeric fields
+                const defaults = {
+                    'Age': 40,
+                    'TenureMonths': 24,
+                    'MonthlyCharges': 65,
+                    'TotalCharges': 1500,
+                    'SupportCallsLast90d': 2,
+                    'AvgDownlinkMbps': 50
+                };
+                this.featureDefaults[feature.name] = defaults[feature.name] || 0;
+            }
+        });
+    },
+    
+    /**
      * Render Customer ID section
      */
     renderCustomerSection(container) {
         const section = document.createElement('div');
         section.className = 'form-section';
+        section.setAttribute('data-section', 'customer');
         section.innerHTML = `
-            <h3 class="form-section-title">👤 Customer Information</h3>
+            <div class="form-section-header">
+                <h3 class="form-section-title">👤 Customer Information</h3>
+                <button type="button" class="btn btn-mini btn-predict" data-section="customer">
+                    Predict
+                </button>
+            </div>
             <div class="form-section-content">
                 <div class="form-field">
                     <label for="field-CustomerID">Customer ID</label>
@@ -59,6 +97,11 @@ const Prediction = {
             </div>
         `;
         container.appendChild(section);
+        
+        // Add event listener for section predict button
+        section.querySelector('.btn-predict').addEventListener('click', () => {
+            this.predictSection('customer');
+        });
     },
     
     /**
@@ -69,7 +112,17 @@ const Prediction = {
         
         const section = document.createElement('div');
         section.className = 'form-section';
-        section.innerHTML = '<h3 class="form-section-title">📊 Demographics</h3>';
+        section.setAttribute('data-section', 'demographic');
+        
+        const header = document.createElement('div');
+        header.className = 'form-section-header';
+        header.innerHTML = `
+            <h3 class="form-section-title">📊 Demographics</h3>
+            <button type="button" class="btn btn-mini btn-predict" data-section="demographic">
+                Predict
+            </button>
+        `;
+        section.appendChild(header);
         
         const content = document.createElement('div');
         content.className = 'form-section-content';
@@ -80,6 +133,11 @@ const Prediction = {
         
         section.appendChild(content);
         container.appendChild(section);
+        
+        // Add event listener for section predict button
+        section.querySelector('.btn-predict').addEventListener('click', () => {
+            this.predictSection('demographic');
+        });
     },
     
     /**
@@ -90,7 +148,17 @@ const Prediction = {
         
         const section = document.createElement('div');
         section.className = 'form-section';
-        section.innerHTML = '<h3 class="form-section-title">📱 Service Details</h3>';
+        section.setAttribute('data-section', 'service');
+        
+        const header = document.createElement('div');
+        header.className = 'form-section-header';
+        header.innerHTML = `
+            <h3 class="form-section-title">📱 Service Details</h3>
+            <button type="button" class="btn btn-mini btn-predict" data-section="service">
+                Predict
+            </button>
+        `;
+        section.appendChild(header);
         
         const content = document.createElement('div');
         content.className = 'form-section-content';
@@ -101,6 +169,11 @@ const Prediction = {
         
         section.appendChild(content);
         container.appendChild(section);
+        
+        // Add event listener for section predict button
+        section.querySelector('.btn-predict').addEventListener('click', () => {
+            this.predictSection('service');
+        });
     },
     
     /**
@@ -111,7 +184,17 @@ const Prediction = {
         
         const section = document.createElement('div');
         section.className = 'form-section';
-        section.innerHTML = '<h3 class="form-section-title">📈 Usage Metrics</h3>';
+        section.setAttribute('data-section', 'usage');
+        
+        const header = document.createElement('div');
+        header.className = 'form-section-header';
+        header.innerHTML = `
+            <h3 class="form-section-title">📈 Usage Metrics</h3>
+            <button type="button" class="btn btn-mini btn-predict" data-section="usage">
+                Predict
+            </button>
+        `;
+        section.appendChild(header);
         
         const content = document.createElement('div');
         content.className = 'form-section-content';
@@ -122,6 +205,11 @@ const Prediction = {
         
         section.appendChild(content);
         container.appendChild(section);
+        
+        // Add event listener for section predict button
+        section.querySelector('.btn-predict').addEventListener('click', () => {
+            this.predictSection('usage');
+        });
     },
     
     /**
@@ -132,7 +220,17 @@ const Prediction = {
         
         const section = document.createElement('div');
         section.className = 'form-section';
-        section.innerHTML = '<h3 class="form-section-title">💳 Payment & Billing</h3>';
+        section.setAttribute('data-section', 'payment');
+        
+        const header = document.createElement('div');
+        header.className = 'form-section-header';
+        header.innerHTML = `
+            <h3 class="form-section-title">💳 Payment & Billing</h3>
+            <button type="button" class="btn btn-mini btn-predict" data-section="payment">
+                Predict
+            </button>
+        `;
+        section.appendChild(header);
         
         const content = document.createElement('div');
         content.className = 'form-section-content';
@@ -143,6 +241,11 @@ const Prediction = {
         
         section.appendChild(content);
         container.appendChild(section);
+        
+        // Add event listener for section predict button
+        section.querySelector('.btn-predict').addEventListener('click', () => {
+            this.predictSection('payment');
+        });
     },
     
     /**
@@ -175,6 +278,24 @@ const Prediction = {
             input.type = 'number';
             input.id = `field-${feature.name}`;
             input.name = feature.name;
+            
+            // Add validation attributes based on field name
+            const validationRules = {
+                'Age': { min: 18, max: 100, step: 1 },
+                'TenureMonths': { min: 0, max: 120, step: 1 },
+                'MonthlyCharges': { min: 0, max: 2000, step: 0.01 },
+                'TotalCharges': { min: 0, max: 150000, step: 0.01 },
+                'SupportCallsLast90d': { min: 0, max: 50, step: 1 },
+                'AvgDownlinkMbps': { min: 0, max: 1000, step: 0.1 }
+            };
+            
+            if (validationRules[feature.name]) {
+                const rules = validationRules[feature.name];
+                input.min = rules.min;
+                input.max = rules.max;
+                input.step = rules.step;
+                input.title = `Value must be between ${rules.min} and ${rules.max}`;
+            }
             input.step = 'any';
             input.value = '0';
             input.required = true;
@@ -241,6 +362,60 @@ const Prediction = {
     },
     
     /**
+     * Validate input data before prediction
+     */
+    validateInputData(inputData) {
+        const errors = [];
+        
+        // Validate CustomerID format and range
+        if ('CustomerID' in inputData) {
+            const custId = String(inputData.CustomerID);
+            if (custId.startsWith('CUST')) {
+                const numericPart = parseInt(custId.replace('CUST', ''));
+                if (isNaN(numericPart)) {
+                    errors.push('CustomerID has invalid format. Expected: CUSTXXXXXX');
+                } else if (numericPart < 100000) {
+                    errors.push('CustomerID must be at least CUST100000');
+                } else if (numericPart > 200000) {
+                    errors.push('CustomerID cannot exceed CUST200000');
+                }
+            } else if (custId.toLowerCase() !== 'none' && custId !== '') {
+                errors.push('CustomerID must start with CUST followed by numbers');
+            }
+        }
+        
+        // Validation rules
+        const validationRules = {
+            'Age': { min: 18, max: 100, label: 'Age' },
+            'TenureMonths': { min: 0, max: 120, label: 'Tenure Months' },
+            'MonthlyCharges': { min: 0, max: 2000, label: 'Monthly Charges' },
+            'TotalCharges': { min: 0, max: 150000, label: 'Total Charges' },
+            'SupportCallsLast90d': { min: 0, max: 50, label: 'Support Calls' },
+            'AvgDownlinkMbps': { min: 0, max: 1000, label: 'Download Speed' }
+        };
+        
+        // Check numeric fields
+        for (const [field, rules] of Object.entries(validationRules)) {
+            if (field in inputData) {
+                const value = parseFloat(inputData[field]);
+                
+                if (isNaN(value)) {
+                    errors.push(`${rules.label} must be a valid number`);
+                } else if (value < rules.min) {
+                    errors.push(`${rules.label} must be at least ${rules.min}`);
+                } else if (value > rules.max) {
+                    errors.push(`${rules.label} cannot exceed ${rules.max}`);
+                }
+            }
+        }
+        
+        return {
+            isValid: errors.length === 0,
+            errors: errors
+        };
+    },
+    
+    /**
      * Setup form submission handler
      */
     setupFormSubmission() {
@@ -253,10 +428,31 @@ const Prediction = {
             const formData = new FormData(form);
             const inputData = {};
             
+            // Fields that should always remain as strings
+            const stringFields = ['CustomerID', 'customer_id', 'customerId'];
+            
             for (let [key, value] of formData.entries()) {
-                // Try to convert to number if possible
-                const numValue = parseFloat(value);
-                inputData[key] = isNaN(numValue) ? value : numValue;
+                // Get the input element to check its type
+                const inputElement = form.elements[key];
+                
+                // Keep certain fields as strings
+                if (stringFields.includes(key) || 
+                    (inputElement && inputElement.type === 'text') ||
+                    (inputElement && inputElement.tagName === 'SELECT')) {
+                    inputData[key] = value;
+                } else {
+                    // Try to convert to number for numeric inputs
+                    const numValue = parseFloat(value);
+                    inputData[key] = isNaN(numValue) ? value : numValue;
+                }
+            }
+            
+            // Ensure CustomerID is included
+            if (!inputData.CustomerID) {
+                const customerIdInput = document.getElementById('field-CustomerID');
+                if (customerIdInput && customerIdInput.value) {
+                    inputData.CustomerID = customerIdInput.value;
+                }
             }
             
             // Make prediction
@@ -265,10 +461,115 @@ const Prediction = {
     },
     
     /**
+     * Predict using only a specific section's data
+     */
+    async predictSection(sectionName) {
+        const section = document.querySelector(`[data-section="${sectionName}"]`);
+        const button = section.querySelector('.btn-predict');
+        const originalText = button.textContent;
+        
+        try {
+            // Show loading state
+            button.textContent = 'Predicting...';
+            button.disabled = true;
+            
+            // Collect data from this section only
+            const sectionData = this.collectSectionData(section);
+            
+            // Merge with defaults for missing fields
+            const fullData = { ...this.featureDefaults, ...sectionData };
+            
+            // Always include CustomerID from the form if available
+            const customerIdInput = document.getElementById('field-CustomerID');
+            if (customerIdInput && customerIdInput.value) {
+                fullData.CustomerID = customerIdInput.value;
+            }
+            
+            // Validate input data
+            const validation = this.validateInputData(fullData);
+            if (!validation.isValid) {
+                showError('Validation Error: ' + validation.errors.join('; '));
+                button.textContent = originalText;
+                button.disabled = false;
+                return;
+            }
+            
+            // Make API call
+            const result = await API.predict(fullData);
+            
+            // Display results with section label
+            this.displayResults(result, this.getSectionLabel(sectionName));
+            
+            // Reset button
+            button.textContent = originalText;
+            button.disabled = false;
+            
+        } catch (error) {
+            console.error('Prediction error:', error);
+            showError('Prediction failed: ' + error.message);
+            
+            // Reset button
+            button.textContent = originalText;
+            button.disabled = false;
+        }
+    },
+    
+    /**
+     * Collect data from a specific section
+     */
+    collectSectionData(section) {
+        const data = {};
+        const inputs = section.querySelectorAll('input, select');
+        
+        // Fields that should always remain as strings
+        const stringFields = ['CustomerID', 'customer_id', 'customerId'];
+        
+        inputs.forEach(input => {
+            const value = input.value;
+            const fieldName = input.name;
+            
+            // Keep certain fields as strings
+            if (stringFields.includes(fieldName) || input.type === 'text') {
+                data[fieldName] = value;
+            } else if (input.tagName === 'SELECT') {
+                // Select dropdowns - keep as string (categorical)
+                data[fieldName] = value;
+            } else {
+                // Try to convert to number for numeric inputs
+                const numValue = parseFloat(value);
+                data[fieldName] = isNaN(numValue) ? value : numValue;
+            }
+        });
+        
+        return data;
+    },
+    
+    /**
+     * Get human-readable section label
+     */
+    getSectionLabel(sectionName) {
+        const labels = {
+            'customer': 'Customer Information',
+            'demographic': 'Demographics',
+            'service': 'Service Details',
+            'usage': 'Usage Metrics',
+            'payment': 'Payment & Billing'
+        };
+        return labels[sectionName] || sectionName;
+    },
+    
+    /**
      * Make prediction and display results
      */
     async makePrediction(inputData) {
         try {
+            // Validate input data first
+            const validation = this.validateInputData(inputData);
+            if (!validation.isValid) {
+                showError('Validation Error: ' + validation.errors.join('; '));
+                return;
+            }
+            
             // Show loading state
             const submitBtn = document.querySelector('.btn-primary');
             const originalText = submitBtn.textContent;
@@ -279,7 +580,7 @@ const Prediction = {
             const result = await API.predict(inputData);
             
             // Display results
-            this.displayResults(result);
+            this.displayResults(result, 'All Sections');
             
             // Reset button
             submitBtn.textContent = originalText;
@@ -291,7 +592,7 @@ const Prediction = {
             
             // Reset button
             const submitBtn = document.querySelector('.btn-primary');
-            submitBtn.textContent = '🎯 Predict Churn';
+            submitBtn.textContent = '🎯 Predict with All Data';
             submitBtn.disabled = false;
         }
     },
@@ -299,8 +600,9 @@ const Prediction = {
     /**
      * Display prediction results
      */
-    displayResults(result) {
+    displayResults(result, sectionLabel = 'All Sections') {
         const resultDiv = document.getElementById('prediction-result');
+        const sectionLabelEl = document.getElementById('result-section-label');
         const probabilityEl = document.getElementById('result-probability');
         const statusEl = document.getElementById('result-status');
         const confidenceEl = document.getElementById('result-confidence');
@@ -308,6 +610,9 @@ const Prediction = {
         
         // Show result section
         resultDiv.classList.remove('hidden');
+        
+        // Display section label
+        sectionLabelEl.textContent = sectionLabel;
         
         // Display probability
         probabilityEl.textContent = formatPercentage(result.probability);

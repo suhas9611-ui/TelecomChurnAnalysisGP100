@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaints Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/complaints.css">
+    <script src="https://cdn.plot.ly/plotly-2.26.0.min.js"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <h1 class="header-title">
+                <span class="icon">📋</span>
+                <span>Customer Complaints Dashboard</span>
+            </h1>
+            <nav class="header-nav">
+                <a href="index.html" class="nav-link">🏠 Churn Dashboard</a>
+                <a href="complaints.html" class="nav-link active">📋 Complaints</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            
+            <!-- Metrics Section -->
+            <section class="metrics-section">
+                <div class="metric-card">
+                    <div class="metric-icon">📊</div>
+                    <div class="metric-content">
+                        <h3 class="metric-label">Total Complaints</h3>
+                        <p class="metric-value" id="total-complaints">-</p>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-icon">😠</div>
+                    <div class="metric-content">
+                        <h3 class="metric-label">Negative Sentiment</h3>
+                        <p class="metric-value" id="negative-complaints">-</p>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-icon">😐</div>
+                    <div class="metric-content">
+                        <h3 class="metric-label">Neutral Sentiment</h3>
+                        <p class="metric-value" id="neutral-complaints">-</p>
+                    </div>
+                </div>
+                
+                <div class="metric-card">
+                    <div class="metric-icon">😊</div>
+                    <div class="metric-content">
+                        <h3 class="metric-label">Positive Sentiment</h3>
+                        <p class="metric-value" id="positive-complaints">-</p>
+                    </div>
+                </div>
+            </section>
+
+            <hr class="divider">
+
+            <!-- Charts Section -->
+            <section class="charts-section">
+                <h2 class="section-title">📊 Complaints Analysis</h2>
+                <div id="complaints-charts-container" class="charts-grid">
+                    <div class="loading">Loading charts...</div>
+                </div>
+            </section>
+
+            <hr class="divider">
+
+            <!-- Complaints Table Section -->
+            <section class="complaints-table-section">
+                <h2 class="section-title">📋 Recent Complaints</h2>
+                
+                <!-- Filters -->
+                <div class="filters-container">
+                    <div class="filter-group">
+                        <label for="filter-sentiment">Sentiment:</label>
+                        <select id="filter-sentiment">
+                            <option value="all">All</option>
+                            <option value="Negative">Negative</option>
+                            <option value="Neutral">Neutral</option>
+                            <option value="Positive">Positive</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="filter-category">Category:</label>
+                        <select id="filter-category">
+                            <option value="all">All</option>
+                        </select>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <label for="filter-channel">Channel:</label>
+                        <select id="filter-channel">
+                            <option value="all">All</option>
+                        </select>
+                    </div>
+                    
+                    <button id="apply-filters" class="btn btn-primary btn-mini">Apply Filters</button>
+                    <button id="reset-filters" class="btn btn-secondary btn-mini">Reset</button>
+                </div>
+                
+                <!-- Complaints Table -->
+                <div class="table-container">
+                    <table class="complaints-table">
+                        <thead>
+                            <tr>
+                                <th>Complaint ID</th>
+                                <th>Customer ID</th>
+                                <th>Date</th>
+                                <th>Category</th>
+                                <th>Channel</th>
+                                <th>Sentiment</th>
+                                <th>Complaint Text</th>
+                            </tr>
+                        </thead>
+                        <tbody id="complaints-table-body">
+                            <tr>
+                                <td colspan="7" class="loading">Loading complaints...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <!-- Pagination -->
+                <div class="pagination">
+                    <button id="prev-page" class="btn btn-secondary btn-mini">← Previous</button>
+                    <span id="page-info">Page 1 of 1</span>
+                    <button id="next-page" class="btn btn-secondary btn-mini">Next →</button>
+                </div>
+            </section>
+
+            <hr class="divider">
+
+            <!-- Sentiment Analysis Section -->
+            <section class="sentiment-section">
+                <h2 class="section-title">🔮 Analyze Complaint Sentiment</h2>
+                <p class="section-description">Enter a complaint text to predict its sentiment:</p>
+                
+                <div class="sentiment-form">
+                    <textarea id="complaint-text" 
+                              placeholder="Enter complaint text here..." 
+                              rows="4"></textarea>
+                    
+                    <button id="analyze-sentiment" class="btn btn-primary">
+                        🔍 Analyze Sentiment
+                    </button>
+                </div>
+
+                <!-- Sentiment Result -->
+                <div id="sentiment-result" class="prediction-result hidden">
+                    <h3 class="result-title">📊 Sentiment Analysis Result</h3>
+                    
+                    <div class="result-metric">
+                        <span class="result-label">Predicted Sentiment:</span>
+                        <span class="result-value" id="predicted-sentiment">-</span>
+                    </div>
+                    
+                    <div id="sentiment-status" class="result-status">
+                        <!-- Status will be inserted here -->
+                    </div>
+                    
+                    <div class="result-confidence">
+                        <div class="confidence-bar">
+                            <div id="sentiment-confidence-fill" class="confidence-fill"></div>
+                        </div>
+                        <p class="confidence-text">
+                            Confidence: <span id="sentiment-confidence">-</span>
+                        </p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>Built with ❤️ for data-driven decisions</p>
+        </div>
+    </footer>
+
+    <!-- Error Toast -->
+    <div id="error-toast" class="toast hidden">
+        <span id="error-message"></span>
+    </div>
+
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/complaints-charts.js"></script>
+    <script src="js/complaints.js"></script>
+</body>
+</html>

@@ -44,72 +44,84 @@ const Charts = {
         // Prepare data for Plotly
         const traces = this.prepareChartTraces(chartData);
         
-        // Chart layout
+        // Chart layout for pie charts
         const layout = {
             title: {
                 text: `Churn by ${chartData.column}`,
-                font: { size: 16, weight: 600 }
+                font: { 
+                    size: 18, 
+                    weight: 700,
+                    color: '#0f172a'
+                },
+                x: 0.5,
+                xanchor: 'center'
             },
-            barmode: 'group',
-            xaxis: { title: chartData.column },
-            yaxis: { title: 'Count' },
             showlegend: true,
             legend: {
-                orientation: 'h',
-                y: -0.2
+                orientation: 'v',
+                y: 0.5,
+                x: 1.1,
+                xanchor: 'left',
+                font: { size: 11 }
             },
-            margin: { t: 50, b: 80, l: 50, r: 20 },
-            height: 400
+            margin: { t: 60, b: 40, l: 40, r: 140 },
+            height: 420,
+            autosize: true,
+            paper_bgcolor: '#ffffff'
         };
         
-        // Render chart
-        Plotly.newPlot(chartDiv.id, traces, layout, CONFIG.chartConfig);
+        // Render chart with config
+        const config = {
+            ...CONFIG.chartConfig,
+            responsive: true,
+            displaylogo: false
+        };
+        
+        Plotly.newPlot(chartDiv.id, traces, layout, config);
     },
     
     /**
      * Prepare chart traces from data
      */
     prepareChartTraces(chartData) {
-        // Group data by churn status
-        const churnedData = {};
-        const notChurnedData = {};
+        // Aggregate data by category
+        const categoryTotals = {};
         
         chartData.data.forEach(item => {
             const category = item[chartData.column];
             const count = item.count;
-            const churnStatus = item.Churn || item.churn || 0;
             
-            if (churnStatus === 1 || churnStatus === '1') {
-                churnedData[category] = count;
-            } else {
-                notChurnedData[category] = count;
+            if (!categoryTotals[category]) {
+                categoryTotals[category] = 0;
             }
+            categoryTotals[category] += count;
         });
         
-        // Get all categories
-        const categories = [...new Set([
-            ...Object.keys(churnedData),
-            ...Object.keys(notChurnedData)
-        ])];
+        // Get categories and values
+        const labels = Object.keys(categoryTotals);
+        const values = Object.values(categoryTotals);
         
-        // Create traces
-        const traces = [
-            {
-                x: categories,
-                y: categories.map(cat => notChurnedData[cat] || 0),
-                name: 'Not Churned',
-                type: 'bar',
-                marker: { color: CONFIG.colors.churnNo }
-            },
-            {
-                x: categories,
-                y: categories.map(cat => churnedData[cat] || 0),
-                name: 'Churned',
-                type: 'bar',
-                marker: { color: CONFIG.colors.churnYes }
-            }
+        // Create color palette
+        const colors = [
+            '#3b82f6', '#8b5cf6', '#ec4899', '#f59e0b', 
+            '#10b981', '#06b6d4', '#6366f1', '#f97316',
+            '#14b8a6', '#a855f7', '#ef4444', '#84cc16'
         ];
         
-        return traces;
+        // Create pie chart trace
+        const trace = {
+            labels: labels,
+            values: values,
+            type: 'pie',
+            marker: {
+                colors: colors.slice(0, labels.length)
+            },
+            textinfo: 'label+percent',
+            textposition: 'auto',
+            hoverinfo: 'label+value+percent',
+            hole: 0  // Set to 0.4 for donut chart
+        };
+        
+        return [trace];
     }
 };
