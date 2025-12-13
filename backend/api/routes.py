@@ -18,10 +18,28 @@ from backend.utils.data_processor import DataProcessor
 from backend.utils.model_predictor import ModelPredictor
 from backend.utils.sentiment_analyzer import SentimentAnalyzer
 
-# Initialize components
-data_processor = DataProcessor()
-model_predictor = ModelPredictor()
-sentiment_analyzer = SentimentAnalyzer()
+# Global variables for lazy initialization
+_data_processor = None
+_model_predictor = None
+_sentiment_analyzer = None
+
+def get_data_processor():
+    global _data_processor
+    if _data_processor is None:
+        _data_processor = DataProcessor()
+    return _data_processor
+
+def get_model_predictor():
+    global _model_predictor
+    if _model_predictor is None:
+        _model_predictor = ModelPredictor()
+    return _model_predictor
+
+def get_sentiment_analyzer():
+    global _sentiment_analyzer
+    if _sentiment_analyzer is None:
+        _sentiment_analyzer = SentimentAnalyzer()
+    return _sentiment_analyzer
 
 @api_bp.route('/', methods=['GET'])
 def health_check():
@@ -39,6 +57,7 @@ def get_dashboard_data():
         logger.info("Loading dashboard data from real files...")
         
         # Load real customer data from CSV files only
+        data_processor = get_data_processor()
         customers_df = data_processor.load_customer_data()
         logger.info(f"Loaded {len(customers_df)} customer records from CSV")
         
@@ -95,6 +114,7 @@ def get_complaints_data():
         period = request.args.get('period', '30')
         
         # Load complaints data
+        data_processor = get_data_processor()
         complaints_df = data_processor.load_complaints_data()
         complaints_data = data_processor.generate_complaints_data(complaints_df, period)
         
@@ -121,6 +141,7 @@ def predict_churn():
             return jsonify({'error': f'Missing required fields: {missing_fields}'}), 400
         
         # Make prediction
+        model_predictor = get_model_predictor()
         prediction_result = model_predictor.predict_single(customer_data)
         
         return jsonify(prediction_result)
@@ -146,6 +167,7 @@ def analyze_sentiment():
             return jsonify({'error': 'Empty text provided'}), 400
         
         # Analyze sentiment
+        sentiment_analyzer = get_sentiment_analyzer()
         sentiment_result = sentiment_analyzer.analyze(text)
         
         return jsonify(sentiment_result)
@@ -165,6 +187,7 @@ def get_customer_data():
         segment = request.args.get('segment', 'all')
         
         # Load and filter data
+        data_processor = get_data_processor()
         customers_df = data_processor.load_customer_data()
         filtered_data = data_processor.filter_customers(
             customers_df, search, segment, page, page_size

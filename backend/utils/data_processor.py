@@ -132,6 +132,8 @@ class DataProcessor:
                                              bins=[0, 35, 65, 90, float('inf')], 
                                              labels=['₹0-2.9K', '₹2.9K-5.4K', '₹5.4K-7.5K', '₹7.5K+'])
                 income_churn = df_temp.groupby('ChargeRange')['ChurnBinary'].mean()
+                # Handle NaN values by filling with 0
+                income_churn = income_churn.fillna(0)
                 charts['churnByIncome'] = {
                     'incomeRanges': income_churn.index.astype(str).tolist(),
                     'churnRates': (income_churn * 100).round(1).tolist()
