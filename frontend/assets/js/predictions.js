@@ -293,6 +293,18 @@ class PredictionsPage {
             this.form.addEventListener('reset', () => this.resetPredictionForm());
         }
 
+        // Individual section prediction buttons
+        const sectionButtons = document.querySelectorAll('.section-predict-btn');
+        sectionButtons.forEach(btn => {
+            btn.addEventListener('click', (e) => this.handleSectionPrediction(e));
+        });
+
+        // Predict filled sections button
+        const predictFilledBtn = document.getElementById('predict-filled-sections');
+        if (predictFilledBtn) {
+            predictFilledBtn.addEventListener('click', () => this.handleFilledSectionsPrediction());
+        }
+
         // Batch prediction buttons
         const exportBtn = document.getElementById('export-results');
         const clearBtn = document.getElementById('clear-results');
@@ -311,8 +323,9 @@ class PredictionsPage {
             clearResultsBtn.addEventListener('click', () => this.clearCurrentResults());
         }
 
-        // Form field validation
+        // Form field validation and data tracking
         this.setupFormValidation();
+        this.setupDataTracking();
     }
 
     /**
@@ -441,9 +454,24 @@ class PredictionsPage {
     }
 
     /**
-     * Validate form data
+     * Validate form data (now flexible - no required fields)
      */
-    validateFormData(data) {
+    validateFormData(data, requireAll = false) {
+        if (!requireAll) {
+            // For flexible predictions, just check if we have any data
+            const hasAnyData = Object.values(data).some(value => 
+                value !== '' && value !== null && value !== undefined
+            );
+            
+            if (!hasAnyData) {
+                Utils.showToast('Please fill in at least one field to make a prediction', 'warning');
+                return false;
+            }
+            
+            return true;
+        }
+        
+        // Original validation for comprehensive predictions (kept for compatibility)
         const requiredFields = [
             'gender', 'SeniorCitizen', 'Partner', 'Dependents', 'tenure',
             'PhoneService', 'MultipleLines', 'InternetService', 'OnlineSecurity',
@@ -456,7 +484,7 @@ class PredictionsPage {
         );
         
         if (missingFields.length > 0) {
-            Utils.showToast('Please fill in all required fields', 'error');
+            Utils.showToast(`Missing fields: ${missingFields.join(', ')}`, 'info');
             return false;
         }
         
@@ -493,7 +521,11 @@ class PredictionsPage {
         this.updateConfidenceBar(confidence);
         this.updateRiskIndicators(riskLevel, probability);
         
-
+        // Update category predictions
+        this.updateCategoryPredictions(result.category_predictions || {});
+        
+        // Update recommendations
+        this.updateRecommendations(result.recommendations || []);
         
         // Add success indicator
         this.showPredictionSuccess();
@@ -956,6 +988,353 @@ class PredictionsPage {
 
 
 
+    /**
+     * Update category predictions display
+     */
+    updateCategoryPredictions(categoryPredictions) {
+        const categorySection = document.getElementById('category-predictions');
+        
+        if (!categorySection || !categoryPredictions) {
+            return;
+        }
+        
+        // Show category predictions section
+        categorySection.style.display = 'block';
+        
+        // Update each category
+        const categories = {
+            'demographics': 'demo',
+            'service_info': 'service', 
+            'internet_addons': 'internet',
+            'contract_billing': 'billing',
+            'financial': 'financial'
+        };
+        
+        Object.entries(categories).forEach(([categoryKey, elementPrefix]) => {
+            const categoryData = categoryPredictions[categoryKey];
+            
+            if (categoryData) {
+                // Update probability
+                this.updateElement(`${elementPrefix}-probability`, 
+                    this.formatProbabilityDisplay(categoryData.churn_probability));
+                
+                // Update risk level
+                const riskElement = document.getElementById(`${elementPrefix}-risk`);
+                if (riskElement) {
+                    riskElement.textContent = categoryData.risk_level;
+                    riskElement.className = `category-risk ${this.getRiskLevelClass(categoryData.risk_level)}`;
+                }
+                
+                // Update factors
+                const factorsElement = document.getElementById(`${elementPrefix}-factors`);
+                if (factorsElement && categoryData.key_factors) {
+                    if (categoryData.key_factors.length > 0) {
+                        factorsElement.innerHTML = `
+                            <ul>
+                                ${categoryData.key_factors.map(factor => `<li>${factor}</li>`).join('')}
+                            </ul>
+                        `;
+                    } else {
+                        factorsElement.textContent = 'No specific risk factors identified';
+                    }
+                }
+                
+                // Update category card styling based on risk
+                const categoryCard = factorsElement?.closest('.category-card');
+                if (categoryCard) {
+                    // Remove existing risk classes
+                    categoryCard.classList.remove('high-risk-category', 'medium-risk-category', 'low-risk-category');
+                    // Add new risk class
+                    categoryCard.classList.add(`${this.getRiskLevelClass(categoryData.risk_level)}-category`);
+                }
+            }
+        });
+    }
+    
+    /**
+     * Update recommendations display
+     */
+    updateRecommendations(recommendations) {
+        const recommendationsSection = document.getElementById('recommendations-section');
+        const recommendationsList = document.getElementById('recommendations-list');
+        
+        if (!recommendationsSection || !recommendationsList) {
+            return;
+        }
+        
+        if (!recommendations || recommendations.length === 0) {
+            recommendationsSection.style.display = 'none';
+            return;
+        }
+        
+        // Show recommendations section
+        recommendationsSection.style.display = 'block';
+        
+        // Clear existing recommendations
+        recommendationsList.innerHTML = '';
+        
+        // Add each recommendation
+        recommendations.forEach((recommendation, index) => {
+            const recommendationItem = document.createElement('div');
+            recommendationItem.className = 'recommendation-item';
+            recommendationItem.style.animationDelay = `${index * 0.1}s`;
+            
+            // Determine priority based on content
+            let priority = 'low';
+            if (recommendation.includes('🚨') || recommendation.includes('Immediate')) {
+                priority = 'high';
+            } else if (recommendation.includes('⚠️') || recommendation.includes('Proactive')) {
+                priority = 'medium';
+            }
+            
+            recommendationItem.innerHTML = `
+                <p class="recommendation-text">
+                    ${recommendation}
+                    <span class="recommendation-priority ${priority}">${priority.toUpperCase()}</span>
+                </p>
+            `;
+            
+            recommendationsList.appendChild(recommendationItem);
+        });
+    }
+    
+    /**
+     * Get risk level CSS class
+     */
+    getRiskLevelClass(riskLevel) {
+        const riskLevelMap = {
+            'High Risk': 'high-risk',
+            'Medium Risk': 'medium-risk', 
+            'Low Risk': 'low-risk'
+        };
+        
+        return riskLevelMap[riskLevel] || 'low-risk';
+    }
+    
+    /**
+     * Handle individual section prediction
+     */
+    async handleSectionPrediction(e) {
+        const section = e.target.dataset.section;
+        const sectionElement = document.getElementById(`${section}-section`);
+        
+        if (!sectionElement) return;
+        
+        try {
+            // Show loading state
+            sectionElement.classList.add('section-loading');
+            
+            // Get data from this section only
+            const sectionData = this.getSectionData(section);
+            
+            if (!this.validateSectionData(sectionData)) {
+                sectionElement.classList.remove('section-loading');
+                return;
+            }
+            
+            // Make prediction with partial data
+            const result = await apiService.predictChurn(sectionData);
+            
+            // Show section-specific result
+            this.displaySectionResult(section, result, sectionElement);
+            
+            sectionElement.classList.remove('section-loading');
+            Utils.showToast(`${section} prediction completed`, 'success');
+            
+        } catch (error) {
+            sectionElement.classList.remove('section-loading');
+            Utils.showToast(`Error predicting ${section}: ${error.message}`, 'error');
+        }
+    }
+    
+    /**
+     * Handle prediction for all filled sections
+     */
+    async handleFilledSectionsPrediction() {
+        try {
+            Utils.toggleLoadingOverlay(true, 'Analyzing filled sections...');
+            
+            const formData = this.getFormData();
+            const filledData = this.getFilledData(formData);
+            
+            if (!this.validateFormData(filledData, false)) {
+                Utils.toggleLoadingOverlay(false);
+                return;
+            }
+            
+            const result = await apiService.predictChurn(filledData);
+            
+            this.currentPrediction = result;
+            this.displayPredictionResults(result);
+            
+            // Show prediction mode indicator
+            this.showPredictionModeIndicator('Partial Data Prediction');
+            
+            Utils.toggleLoadingOverlay(false);
+            Utils.showToast('Prediction completed with available data', 'success');
+            
+        } catch (error) {
+            Utils.toggleLoadingOverlay(false);
+            this.handlePredictionError(error);
+        }
+    }
+    
+    /**
+     * Get data from specific section
+     */
+    getSectionData(section) {
+        const sectionFields = {
+            'demographics': ['gender', 'SeniorCitizen', 'Partner', 'Dependents'],
+            'service': ['tenure', 'PhoneService', 'MultipleLines', 'InternetService'],
+            'addons': ['OnlineSecurity', 'OnlineBackup', 'DeviceProtection', 'TechSupport'],
+            'billing': ['Contract', 'PaperlessBilling', 'PaymentMethod'],
+            'financial': ['MonthlyCharges', 'TotalCharges']
+        };
+        
+        const fields = sectionFields[section] || [];
+        const formData = this.getFormData();
+        const sectionData = {};
+        
+        fields.forEach(field => {
+            if (formData[field] !== '' && formData[field] !== undefined) {
+                sectionData[field] = formData[field];
+            }
+        });
+        
+        return sectionData;
+    }
+    
+    /**
+     * Validate section data
+     */
+    validateSectionData(sectionData) {
+        const hasData = Object.keys(sectionData).length > 0;
+        
+        if (!hasData) {
+            Utils.showToast('Please fill in at least one field in this section', 'warning');
+            return false;
+        }
+        
+        return true;
+    }
+    
+    /**
+     * Get only filled data from form
+     */
+    getFilledData(formData) {
+        const filledData = {};
+        
+        Object.entries(formData).forEach(([key, value]) => {
+            if (value !== '' && value !== null && value !== undefined) {
+                filledData[key] = value;
+            }
+        });
+        
+        return filledData;
+    }
+    
+    /**
+     * Display section-specific prediction result
+     */
+    displaySectionResult(section, result, sectionElement) {
+        // Remove existing result
+        const existingResult = sectionElement.querySelector('.section-prediction-result');
+        if (existingResult) {
+            existingResult.remove();
+        }
+        
+        // Create new result element
+        const resultElement = document.createElement('div');
+        resultElement.className = 'section-prediction-result show';
+        
+        const probability = result.churn_probability;
+        const riskLevel = ConfigUtils.getRiskLevel(probability);
+        const riskText = this.getRiskLevelText(riskLevel);
+        const riskClass = this.getRiskLevelClass(riskText);
+        
+        resultElement.innerHTML = `
+            <div class="section-result-header">
+                <span class="section-result-title">Section Prediction:</span>
+                <span class="section-result-probability">${this.formatProbabilityDisplay(probability)}</span>
+                <span class="section-result-risk ${riskClass}">${riskText}</span>
+            </div>
+            <div class="section-result-factors">
+                Based on available ${section} data • Confidence: ${this.formatConfidenceDisplay(result.confidence || 0.85)}
+            </div>
+        `;
+        
+        sectionElement.appendChild(resultElement);
+    }
+    
+    /**
+     * Setup data tracking for form sections
+     */
+    setupDataTracking() {
+        const formInputs = this.form.querySelectorAll('input, select');
+        
+        formInputs.forEach(input => {
+            input.addEventListener('change', () => this.updateSectionStatus());
+            input.addEventListener('input', () => this.updateSectionStatus());
+        });
+        
+        // Initial status update
+        this.updateSectionStatus();
+    }
+    
+    /**
+     * Update section status based on filled data
+     */
+    updateSectionStatus() {
+        const sections = ['demographics', 'service', 'addons', 'billing', 'financial'];
+        
+        sections.forEach(section => {
+            const sectionElement = document.getElementById(`${section}-section`);
+            const sectionData = this.getSectionData(section);
+            const hasData = Object.keys(sectionData).length > 0;
+            
+            if (sectionElement) {
+                if (hasData) {
+                    sectionElement.classList.add('has-data');
+                } else {
+                    sectionElement.classList.remove('has-data');
+                }
+            }
+        });
+        
+        // Update form groups with data
+        const formGroups = this.form.querySelectorAll('.form-group');
+        formGroups.forEach(group => {
+            const input = group.querySelector('input, select');
+            if (input && input.value !== '') {
+                group.classList.add('has-value');
+            } else {
+                group.classList.remove('has-value');
+            }
+        });
+    }
+    
+    /**
+     * Show prediction mode indicator
+     */
+    showPredictionModeIndicator(mode) {
+        let indicator = document.getElementById('prediction-mode-indicator');
+        
+        if (!indicator) {
+            indicator = document.createElement('div');
+            indicator.id = 'prediction-mode-indicator';
+            indicator.className = 'prediction-mode-indicator';
+            document.body.appendChild(indicator);
+        }
+        
+        indicator.textContent = mode;
+        indicator.classList.add('show');
+        
+        // Hide after 3 seconds
+        setTimeout(() => {
+            indicator.classList.remove('show');
+        }, 3000);
+    }
+    
     /**
      * Update element content safely
      */

@@ -61,12 +61,17 @@
 
                 <form id="prediction-form" class="prediction-form">
                     <!-- Demographics Section -->
-                    <div class="form-section">
-                        <h3 class="form-section-title">👤 Demographics</h3>
+                    <div class="form-section" id="demographics-section">
+                        <div class="section-header">
+                            <h3 class="form-section-title">👤 Demographics</h3>
+                            <button type="button" class="btn btn-mini btn-secondary section-predict-btn" data-section="demographics">
+                                🎯 Predict Demographics Only
+                            </button>
+                        </div>
                         <div class="form-grid">
                             <div class="form-group">
-                                <label for="gender">Gender </label>
-                                <select id="gender" name="gender" required>
+                                <label for="gender">Gender <span class="optional">(Optional)</span></label>
+                                <select id="gender" name="gender">
                                     <option value="">Select Gender</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
@@ -74,8 +79,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="senior-citizen">Senior Citizen </label>
-                                <select id="senior-citizen" name="SeniorCitizen" required>
+                                <label for="senior-citizen">Senior Citizen <span class="optional">(Optional)</span></label>
+                                <select id="senior-citizen" name="SeniorCitizen">
                                     <option value="">Select</option>
                                     <option value="0">No</option>
                                     <option value="1">Yes</option>
@@ -83,8 +88,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="partner">Has Partner </label>
-                                <select id="partner" name="Partner" required>
+                                <label for="partner">Has Partner <span class="optional">(Optional)</span></label>
+                                <select id="partner" name="Partner">
                                     <option value="">Select</option>
                                     <option value="Yes">Yes</option>
                                     <option value="No">No</option>
@@ -92,8 +97,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="dependents">Has Dependents </label>
-                                <select id="dependents" name="Dependents" required>
+                                <label for="dependents">Has Dependents <span class="optional">(Optional)</span></label>
+                                <select id="dependents" name="Dependents">
                                     <option value="">Select</option>
                                     <option value="Yes">Yes</option>
                                     <option value="No">No</option>
@@ -103,18 +108,23 @@
                     </div>
 
                     <!-- Service Information Section -->
-                    <div class="form-section">
-                        <h3 class="form-section-title">📞 Service Information</h3>
+                    <div class="form-section" id="service-section">
+                        <div class="section-header">
+                            <h3 class="form-section-title">📞 Service Information</h3>
+                            <button type="button" class="btn btn-mini btn-secondary section-predict-btn" data-section="service">
+                                🎯 Predict Service Only
+                            </button>
+                        </div>
                         <div class="form-grid">
                             <div class="form-group">
-                                <label for="tenure">Tenure (months) </label>
-                                <input type="number" id="tenure" name="tenure" min="0" max="100" placeholder="e.g., 24" required>
+                                <label for="tenure">Tenure (months) <span class="optional">(Optional)</span></label>
+                                <input type="number" id="tenure" name="tenure" min="0" max="100" placeholder="e.g., 24">
                                 <small class="field-help">How long has the customer been with the company?</small>
                             </div>
 
                             <div class="form-group">
-                                <label for="phone-service">Phone Service </label>
-                                <select id="phone-service" name="PhoneService" required>
+                                <label for="phone-service">Phone Service <span class="optional">(Optional)</span></label>
+                                <select id="phone-service" name="PhoneService">
                                     <option value="">Select</option>
                                     <option value="Yes">Yes</option>
                                     <option value="No">No</option>
@@ -122,8 +132,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="multiple-lines">Multiple Lines </label>
-                                <select id="multiple-lines" name="MultipleLines" required>
+                                <label for="multiple-lines">Multiple Lines <span class="optional">(Optional)</span></label>
+                                <select id="multiple-lines" name="MultipleLines">
                                     <option value="">Select</option>
                                     <option value="Yes">Yes</option>
                                     <option value="No">No</option>
@@ -132,8 +142,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="internet-service">Internet Service </label>
-                                <select id="internet-service" name="InternetService" required>
+                                <label for="internet-service">Internet Service <span class="optional">(Optional)</span></label>
+                                <select id="internet-service" name="InternetService">
                                     <option value="">Select</option>
                                     <option value="DSL">DSL</option>
                                     <option value="Fiber optic">Fiber optic</option>
@@ -144,12 +154,17 @@
                     </div>
 
                     <!-- Additional Services Section -->
-                    <div class="form-section">
-                        <h3 class="form-section-title">🛡️ Additional Services</h3>
+                    <div class="form-section" id="addons-section">
+                        <div class="section-header">
+                            <h3 class="form-section-title">🛡️ Internet & Add-ons</h3>
+                            <button type="button" class="btn btn-mini btn-secondary section-predict-btn" data-section="addons">
+                                🎯 Predict Add-ons Only
+                            </button>
+                        </div>
                         <div class="form-grid">
                             <div class="form-group">
-                                <label for="online-security">Online Security </label>
-                                <select id="online-security" name="OnlineSecurity" required>
+                                <label for="online-security">Online Security <span class="optional">(Optional)</span></label>
+                                <select id="online-security" name="OnlineSecurity">
                                     <option value="">Select</option>
                                     <option value="Yes">Yes</option>
                                     <option value="No">No</option>
@@ -158,8 +173,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="online-backup">Online Backup </label>
-                                <select id="online-backup" name="OnlineBackup" required>
+                                <label for="online-backup">Online Backup <span class="optional">(Optional)</span></label>
+                                <select id="online-backup" name="OnlineBackup">
                                     <option value="">Select</option>
                                     <option value="Yes">Yes</option>
                                     <option value="No">No</option>
@@ -168,8 +183,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="device-protection">Device Protection </label>
-                                <select id="device-protection" name="DeviceProtection" required>
+                                <label for="device-protection">Device Protection <span class="optional">(Optional)</span></label>
+                                <select id="device-protection" name="DeviceProtection">
                                     <option value="">Select</option>
                                     <option value="Yes">Yes</option>
                                     <option value="No">No</option>
@@ -178,8 +193,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="tech-support">Tech Support </label>
-                                <select id="tech-support" name="TechSupport" required>
+                                <label for="tech-support">Tech Support <span class="optional">(Optional)</span></label>
+                                <select id="tech-support" name="TechSupport">
                                     <option value="">Select</option>
                                     <option value="Yes">Yes</option>
                                     <option value="No">No</option>
@@ -190,12 +205,17 @@
                     </div>
 
                     <!-- Contract & Billing Section -->
-                    <div class="form-section">
-                        <h3 class="form-section-title">📄 Contract & Billing</h3>
+                    <div class="form-section" id="billing-section">
+                        <div class="section-header">
+                            <h3 class="form-section-title">📄 Contract & Billing</h3>
+                            <button type="button" class="btn btn-mini btn-secondary section-predict-btn" data-section="billing">
+                                🎯 Predict Billing Only
+                            </button>
+                        </div>
                         <div class="form-grid">
                             <div class="form-group">
-                                <label for="contract">Contract Type </label>
-                                <select id="contract" name="Contract" required>
+                                <label for="contract">Contract Type <span class="optional">(Optional)</span></label>
+                                <select id="contract" name="Contract">
                                     <option value="">Select Contract</option>
                                     <option value="Month-to-month">Month-to-month</option>
                                     <option value="One year">One year</option>
@@ -204,8 +224,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="paperless-billing">Paperless Billing </label>
-                                <select id="paperless-billing" name="PaperlessBilling" required>
+                                <label for="paperless-billing">Paperless Billing <span class="optional">(Optional)</span></label>
+                                <select id="paperless-billing" name="PaperlessBilling">
                                     <option value="">Select</option>
                                     <option value="Yes">Yes</option>
                                     <option value="No">No</option>
@@ -213,8 +233,8 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="payment-method">Payment Method </label>
-                                <select id="payment-method" name="PaymentMethod" required>
+                                <label for="payment-method">Payment Method <span class="optional">(Optional)</span></label>
+                                <select id="payment-method" name="PaymentMethod">
                                     <option value="">Select Payment Method</option>
                                     <option value="Electronic check">Electronic check</option>
                                     <option value="Mailed check">Mailed check</option>
@@ -226,30 +246,46 @@
                         </div>
                     </div>
 
-                    <!-- Billing Information Section -->
-                    <div class="form-section">
-                        <h3 class="form-section-title">💰 Billing Information</h3>
+                    <!-- Financial Information Section -->
+                    <div class="form-section" id="financial-section">
+                        <div class="section-header">
+                            <h3 class="form-section-title">💰 Financial Information</h3>
+                            <button type="button" class="btn btn-mini btn-secondary section-predict-btn" data-section="financial">
+                                🎯 Predict Financial Only
+                            </button>
+                        </div>
                         <div class="form-grid">
                             <div class="form-group">
-                                <label for="monthly-charges">Monthly Charges (₹) </label>
-                                <input type="number" id="monthly-charges" name="MonthlyCharges" step="1" min="0" max="16600" placeholder="e.g., 2500" required>
+                                <label for="monthly-charges">Monthly Charges (₹) <span class="optional">(Optional)</span></label>
+                                <input type="number" id="monthly-charges" name="MonthlyCharges" step="1" min="0" max="16600" placeholder="e.g., 2500">
                                 <small class="field-help">Current monthly bill amount</small>
                             </div>
 
                             <div class="form-group">
-                                <label for="total-charges">Total Charges (₹) </label>
-                                <input type="number" id="total-charges" name="TotalCharges" step="1" min="0" max="830000" placeholder="e.g., 60000" required>
+                                <label for="total-charges">Total Charges (₹) <span class="optional">(Optional)</span></label>
+                                <input type="number" id="total-charges" name="TotalCharges" step="1" min="0" max="830000" placeholder="e.g., 60000">
                                 <small class="field-help">Total amount paid to date</small>
                             </div>
+                        </div>
                     </div>
 
                     <div class="form-actions">
                         <button type="submit" class="btn btn-primary btn-large">
-                            🎯 Predict Churn Probability
+                            🎯 Predict Overall Churn (All Available Data)
+                        </button>
+                        <button type="button" class="btn btn-info btn-large" id="predict-filled-sections">
+                            📊 Predict Filled Sections Only
                         </button>
                         <button type="reset" class="btn btn-secondary">
                             🔄 Reset Form
                         </button>
+                    </div>
+                    
+                    <div class="prediction-info">
+                        <p class="info-text">
+                            💡 <strong>Flexible Predictions:</strong> Fill any combination of sections and get predictions! 
+                            Use section buttons for individual analysis or main button for comprehensive prediction.
+                        </p>
                     </div>
                 </form>
             </div>
@@ -282,7 +318,7 @@
                     <div class="result-card primary">
                         <div class="result-icon" id="result-icon">🎯</div>
                         <div class="result-content">
-                            <h3>Churn Probability</h3>
+                            <h3>Overall Churn Probability</h3>
                             <div class="result-value" id="churn-probability">--</div>
                             <div class="result-status" id="churn-status">--</div>
                         </div>
@@ -296,6 +332,85 @@
                             <div class="result-value" id="risk-level">--</div>
                             <div class="risk-description" id="risk-description">--</div>
                         </div>
+                    </div>
+                </div>
+
+                <!-- Category Predictions -->
+                <div class="category-predictions" id="category-predictions">
+                    <h3>📊 Detailed Category Analysis</h3>
+                    <div class="category-grid">
+                        <!-- Demographics -->
+                        <div class="category-card">
+                            <div class="category-header">
+                                <div class="category-icon">👤</div>
+                                <div class="category-title">Demographics</div>
+                            </div>
+                            <div class="category-content">
+                                <div class="category-probability" id="demo-probability">--</div>
+                                <div class="category-risk" id="demo-risk">--</div>
+                                <div class="category-factors" id="demo-factors">--</div>
+                            </div>
+                        </div>
+
+                        <!-- Service Information -->
+                        <div class="category-card">
+                            <div class="category-header">
+                                <div class="category-icon">📞</div>
+                                <div class="category-title">Service Info</div>
+                            </div>
+                            <div class="category-content">
+                                <div class="category-probability" id="service-probability">--</div>
+                                <div class="category-risk" id="service-risk">--</div>
+                                <div class="category-factors" id="service-factors">--</div>
+                            </div>
+                        </div>
+
+                        <!-- Internet & Add-ons -->
+                        <div class="category-card">
+                            <div class="category-header">
+                                <div class="category-icon">🌐</div>
+                                <div class="category-title">Internet & Add-ons</div>
+                            </div>
+                            <div class="category-content">
+                                <div class="category-probability" id="internet-probability">--</div>
+                                <div class="category-risk" id="internet-risk">--</div>
+                                <div class="category-factors" id="internet-factors">--</div>
+                            </div>
+                        </div>
+
+                        <!-- Contract & Billing -->
+                        <div class="category-card">
+                            <div class="category-header">
+                                <div class="category-icon">📄</div>
+                                <div class="category-title">Contract & Billing</div>
+                            </div>
+                            <div class="category-content">
+                                <div class="category-probability" id="billing-probability">--</div>
+                                <div class="category-risk" id="billing-risk">--</div>
+                                <div class="category-factors" id="billing-factors">--</div>
+                            </div>
+                        </div>
+
+                        <!-- Financial -->
+                        <div class="category-card">
+                            <div class="category-header">
+                                <div class="category-icon">💰</div>
+                                <div class="category-title">Financial</div>
+                            </div>
+                            <div class="category-content">
+                                <div class="category-probability" id="financial-probability">--</div>
+                                <div class="category-risk" id="financial-risk">--</div>
+                                <div class="category-factors" id="financial-factors">--</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recommendations -->
+                <div class="recommendations-section" id="recommendations-section">
+                    <h3>💡 Actionable Recommendations</h3>
+                    <div class="recommendations-list" id="recommendations-list">
+                        <!-- Recommendations will be populated here -->
                     </div>
                 </div>
 

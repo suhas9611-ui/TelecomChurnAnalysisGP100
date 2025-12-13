@@ -45,6 +45,13 @@ class SentimentAnalyzer:
             'not', 'no', 'never', 'nothing', 'nobody', 'nowhere', 
             'neither', 'nor', 'none', 'cannot', 'cant', 'wont', 'dont'
         }
+        
+        self.neutral_words = {
+            'okay', 'ok', 'fine', 'average', 'normal', 'standard', 'typical',
+            'neither', 'neutral', 'mixed', 'balanced', 'moderate', 'fair',
+            'acceptable', 'adequate', 'reasonable', 'decent', 'ordinary',
+            'regular', 'common', 'usual', 'middle', 'between', 'so-so'
+        }
     
     def analyze(self, text: str) -> Dict[str, Any]:
         """
@@ -123,6 +130,7 @@ class SentimentAnalyzer:
         """Calculate sentiment scores based on word analysis"""
         positive_score = 0.0
         negative_score = 0.0
+        neutral_score = 0.0
         total_words = len(words)
         
         i = 0
@@ -154,21 +162,44 @@ class SentimentAnalyzer:
                     positive_score += score
                 else:
                     negative_score += score
+            elif word in self.neutral_words:
+                # Neutral words contribute to neutral score
+                neutral_score += 1.0 * intensifier
             
             i += 1
         
+        # Check for specific neutral patterns
+        text_lower = ' '.join(words)
+        neutral_patterns = [
+            'neither good nor bad', 'not good not bad', 'okay i guess',
+            'nothing special', 'average service', 'so so', 'meh',
+            'could be better could be worse', 'middle ground'
+        ]
+        
+        strong_neutral_patterns = ['neither good nor bad', 'not good not bad']
+        
+        for pattern in neutral_patterns:
+            if pattern in text_lower:
+                if pattern in strong_neutral_patterns:
+                    # For strong neutral phrases, override other scores
+                    positive_score = 0.0
+                    negative_score = 0.0
+                    neutral_score = 5.0  # Very strong neutral indicator
+                else:
+                    neutral_score += 2.0  # Strong neutral indicator
+        
         # Normalize scores
-        total_sentiment_words = positive_score + negative_score
+        total_sentiment_words = positive_score + negative_score + neutral_score
         
         if total_sentiment_words > 0:
             positive_ratio = positive_score / total_sentiment_words
             negative_ratio = negative_score / total_sentiment_words
-            neutral_ratio = max(0, 1 - positive_ratio - negative_ratio)
+            neutral_ratio = neutral_score / total_sentiment_words
         else:
             # No sentiment words found - assume neutral
-            positive_ratio = 0.2
-            negative_ratio = 0.2
-            neutral_ratio = 0.6
+            positive_ratio = 0.0
+            negative_ratio = 0.0
+            neutral_ratio = 1.0
         
         # Ensure scores sum to 1
         total = positive_ratio + negative_ratio + neutral_ratio

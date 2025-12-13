@@ -133,12 +133,11 @@ def predict_churn():
         if not customer_data:
             return jsonify({'error': 'No customer data provided'}), 400
         
-        # Validate required fields
-        required_fields = ['tenure', 'MonthlyCharges', 'TotalCharges']
-        missing_fields = [field for field in required_fields if field not in customer_data]
+        # Check if we have any data at all (flexible validation)
+        has_any_data = any(value for value in customer_data.values() if value not in ['', None])
         
-        if missing_fields:
-            return jsonify({'error': f'Missing required fields: {missing_fields}'}), 400
+        if not has_any_data:
+            return jsonify({'error': 'No customer data provided for prediction'}), 400
         
         # Make prediction
         model_predictor = get_model_predictor()
