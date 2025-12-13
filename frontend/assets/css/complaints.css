@@ -1,0 +1,782 @@
+/* Complaints Page Styles */
+.complaints-main {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: var(--spacing-lg);
+}
+
+.complaints-header {
+    text-align: center;
+    margin-bottom: var(--spacing-2xl);
+    padding-bottom: var(--spacing-lg);
+    border-bottom: 1px solid var(--border-light);
+}
+
+.complaints-header h1 {
+    font-size: var(--font-size-4xl);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.complaints-header p {
+    font-size: var(--font-size-lg);
+    color: var(--text-secondary);
+}
+
+.complaints-controls {
+    display: flex;
+    gap: var(--spacing-sm);
+    align-items: center;
+    margin-top: var(--spacing-md);
+}
+
+.complaints-controls .control-select {
+    min-width: 140px;
+}
+
+.complaints-controls .btn-mini {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-size-xs);
+}
+
+/* Complaints Overview */
+.complaints-overview {
+    margin-bottom: var(--spacing-2xl);
+}
+
+.overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: var(--spacing-lg);
+    align-items: stretch;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.overview-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-xl);
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.overview-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-color), var(--info-color));
+}
+
+.overview-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl);
+}
+
+.card-icon {
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--spacing-md);
+}
+
+.card-content h3 {
+    font-size: var(--font-size-base);
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.card-value {
+    font-size: var(--font-size-3xl);
+    font-weight: 800;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.card-change {
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+}
+
+.card-change.positive {
+    color: var(--success-color);
+}
+
+.card-change.negative {
+    color: var(--danger-color);
+}
+
+.card-percentage {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-sm);
+}
+
+/* Sentiment Progress Bars */
+.sentiment-bar {
+    width: 100%;
+    height: 8px;
+    background: var(--gray-200);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    margin-top: var(--spacing-sm);
+}
+
+.sentiment-fill {
+    height: 100%;
+    border-radius: var(--radius-sm);
+    transition: width 0.8s ease;
+}
+
+.positive-fill {
+    background: linear-gradient(90deg, #10b981, #059669);
+}
+
+.neutral-fill {
+    background: linear-gradient(90deg, #64748b, #475569);
+}
+
+.negative-fill {
+    background: linear-gradient(90deg, #ef4444, #dc2626);
+}
+
+.positive-card {
+    border-left: 4px solid #10b981;
+}
+
+.neutral-card {
+    border-left: 4px solid #64748b;
+}
+
+.negative-card {
+    border-left: 4px solid #ef4444;
+}
+
+/* Complaints Analytics */
+.complaints-analytics {
+    margin-bottom: var(--spacing-2xl);
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.analytics-grid {
+    display: grid;
+    gap: var(--spacing-lg);
+    align-items: start;
+}
+
+.analytics-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-md);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.analytics-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xl);
+}
+
+.analytics-card .chart-large,
+.analytics-card .chart-medium {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.analytics-card.full-width {
+    grid-column: 1 / -1;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-lg) var(--spacing-xl);
+    border-bottom: 1px solid var(--border-light);
+    background: var(--gray-50);
+    min-height: 60px;
+    flex-shrink: 0;
+}
+
+.card-header h3 {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+    line-height: 1.4;
+}
+
+.card-controls {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.chart-large {
+    height: 400px;
+    padding: var(--spacing-lg);
+    min-height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.chart-medium {
+    height: 340px;
+    padding: var(--spacing-lg);
+    min-height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Ensure charts fill their containers properly */
+.chart-large > div,
+.chart-medium > div {
+    width: 100%;
+    height: 100%;
+}
+
+/* Chart container alignment */
+.analytics-card .chart-large,
+.analytics-card .chart-medium {
+    flex: 1;
+    display: flex;
+    align-items: stretch;
+    justify-content: stretch;
+}
+
+/* Sentiment Analysis Section */
+.sentiment-analysis-section {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+    margin-bottom: var(--spacing-2xl);
+}
+
+.analysis-container {
+    padding: var(--spacing-xl);
+}
+
+.analysis-header {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+}
+
+.analysis-header h2 {
+    font-size: var(--font-size-2xl);
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.analysis-header p {
+    color: var(--text-secondary);
+    font-size: var(--font-size-base);
+}
+
+.analysis-form {
+    max-width: 600px;
+    margin: 0 auto var(--spacing-xl);
+}
+
+.analysis-form .form-group {
+    margin-bottom: var(--spacing-lg);
+}
+
+.analysis-form label {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.analysis-form textarea {
+    width: 100%;
+    border: 2px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-md);
+    font-size: var(--font-size-base);
+    font-family: var(--font-family);
+    resize: vertical;
+    min-height: 120px;
+    transition: all 0.3s ease;
+}
+
+.analysis-form textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 4px rgb(37 99 235 / 0.1);
+}
+
+.form-actions {
+    display: flex;
+    gap: var(--spacing-md);
+    justify-content: center;
+}
+
+/* Sentiment Results */
+.sentiment-results {
+    max-width: 800px;
+    margin: 0 auto;
+    background: var(--gray-50);
+    border-radius: var(--radius-xl);
+    padding: var(--spacing-xl);
+    border: 1px solid var(--border-light);
+}
+
+.results-header h3 {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
+}
+
+.result-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-lg);
+    padding: var(--spacing-lg);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.result-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.result-icon {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-sm);
+}
+
+.result-content h4 {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-sm);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.result-value {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.confidence-bar {
+    width: 100%;
+    height: 6px;
+    background: var(--gray-200);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    margin-top: var(--spacing-sm);
+}
+
+.confidence-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-color), var(--info-color));
+    border-radius: var(--radius-sm);
+    transition: width 0.8s ease;
+}
+
+/* Detailed Scores */
+.detailed-scores {
+    border-top: 1px solid var(--border-light);
+    padding-top: var(--spacing-lg);
+}
+
+.detailed-scores h4 {
+    font-size: var(--font-size-lg);
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-lg);
+    text-align: center;
+}
+
+.scores-grid {
+    display: grid;
+    gap: var(--spacing-md);
+}
+
+.score-item {
+    display: grid;
+    grid-template-columns: 80px 1fr 60px;
+    align-items: center;
+    gap: var(--spacing-md);
+}
+
+.score-label {
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.score-bar {
+    height: 8px;
+    background: var(--gray-200);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+}
+
+.score-fill {
+    height: 100%;
+    border-radius: var(--radius-sm);
+    transition: width 0.8s ease;
+}
+
+.score-fill.positive {
+    background: var(--success-color);
+}
+
+.score-fill.neutral {
+    background: var(--gray-400);
+}
+
+.score-fill.negative {
+    background: var(--danger-color);
+}
+
+.score-value {
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: right;
+}
+
+/* Complaints Table Section */
+.complaints-table-section {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-lg);
+    border-bottom: 1px solid var(--border-light);
+    background: var(--gray-50);
+}
+
+.table-header h2 {
+    font-size: var(--font-size-xl);
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.table-controls {
+    display: flex;
+    gap: var(--spacing-md);
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.table-container {
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.data-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.data-table th {
+    background: var(--gray-100);
+    padding: var(--spacing-md);
+    text-align: left;
+    font-weight: 600;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-light);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.data-table td {
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--border-light);
+    color: var(--text-secondary);
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.data-table tbody tr:hover {
+    background: var(--gray-50);
+}
+
+.table-pagination {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-lg);
+    border-top: 1px solid var(--border-light);
+    background: var(--gray-50);
+}
+
+/* Grid Layout for Analytics Cards - Improved Alignment */
+@media (min-width: 1200px) {
+    .analytics-grid {
+        grid-template-columns: repeat(12, 1fr);
+        gap: var(--spacing-lg);
+        align-items: stretch;
+    }
+    
+    /* Sentiment Trend - Full Width */
+    .analytics-card:nth-child(1) {
+        grid-column: span 12;
+        min-height: 450px;
+    }
+    
+    /* Second Row - Two Equal Cards */
+    .analytics-card:nth-child(2) {
+        grid-column: span 6;
+        min-height: 400px;
+    }
+    
+    .analytics-card:nth-child(3) {
+        grid-column: span 6;
+        min-height: 400px;
+    }
+    
+    /* Third Row - Two Equal Cards */
+    .analytics-card:nth-child(4) {
+        grid-column: span 6;
+        min-height: 400px;
+    }
+    
+    .analytics-card:nth-child(5) {
+        grid-column: span 6;
+        min-height: 400px;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1199px) {
+    .analytics-grid {
+        grid-template-columns: repeat(12, 1fr);
+        gap: var(--spacing-md);
+        align-items: stretch;
+    }
+    
+    /* Sentiment Trend - Full Width */
+    .analytics-card:nth-child(1) {
+        grid-column: span 12;
+        min-height: 400px;
+    }
+    
+    /* Second Row - Two Equal Cards */
+    .analytics-card:nth-child(2) {
+        grid-column: span 6;
+        min-height: 380px;
+    }
+    
+    .analytics-card:nth-child(3) {
+        grid-column: span 6;
+        min-height: 380px;
+    }
+    
+    /* Third Row - Two Equal Cards */
+    .analytics-card:nth-child(4) {
+        grid-column: span 6;
+        min-height: 380px;
+    }
+    
+    .analytics-card:nth-child(5) {
+        grid-column: span 6;
+        min-height: 380px;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    .analytics-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-md);
+        align-items: stretch;
+    }
+    
+    /* Sentiment Trend - Full Width */
+    .analytics-card:nth-child(1) {
+        grid-column: span 2;
+        min-height: 350px;
+    }
+    
+    /* Other cards - One per column */
+    .analytics-card:nth-child(n+2) {
+        grid-column: span 1;
+        min-height: 350px;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .table-header {
+        flex-direction: column;
+        gap: var(--spacing-md);
+        align-items: flex-start;
+    }
+    
+    .table-controls {
+        width: 100%;
+        justify-content: flex-end;
+    }
+}
+
+@media (max-width: 768px) {
+    .complaints-main {
+        padding: var(--spacing-md);
+    }
+    
+    .complaints-header h1 {
+        font-size: var(--font-size-3xl);
+    }
+    
+    .overview-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: var(--spacing-md);
+    }
+    
+    .analytics-grid {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-md);
+    }
+    
+    .analytics-card {
+        grid-column: span 1 !important;
+        min-height: auto !important;
+    }
+    
+    .chart-large {
+        height: 300px;
+        padding: var(--spacing-md);
+        min-height: 280px;
+    }
+    
+    .chart-medium {
+        height: 280px;
+        padding: var(--spacing-md);
+        min-height: 260px;
+    }
+    
+    .card-header {
+        padding: var(--spacing-md);
+        min-height: 50px;
+    }
+    
+    .card-header h3 {
+        font-size: var(--font-size-base);
+    }
+    
+    .results-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .table-controls {
+        flex-direction: column;
+        align-items: stretch;
+        gap: var(--spacing-sm);
+    }
+    
+    .search-input,
+    .control-select {
+        width: 100%;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+    
+    .score-item {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+        text-align: center;
+    }
+    
+    .score-value {
+        text-align: center;
+    }
+}
+
+/* Chart Alignment Improvements */
+.analytics-card .chart-large > div,
+.analytics-card .chart-medium > div {
+    width: 100% !important;
+    height: 100% !important;
+}
+
+/* Ensure consistent spacing */
+.analytics-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Improve chart container alignment */
+.chart-large,
+.chart-medium {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Animation */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.overview-card,
+.analytics-card {
+    animation: slideInUp 0.6s ease-out;
+}
+
+.overview-card:nth-child(1) { animation-delay: 0.1s; }
+.overview-card:nth-child(2) { animation-delay: 0.2s; }
+.overview-card:nth-child(3) { animation-delay: 0.3s; }
+.overview-card:nth-child(4) { animation-delay: 0.4s; }
+
+.sentiment-results {
+    animation: slideInUp 0.6s ease-out;
+}
+
+/* Smooth transitions for responsive changes */
+.analytics-card,
+.overview-card,
+.chart-large,
+.chart-medium {
+    transition: all 0.3s ease;
+}

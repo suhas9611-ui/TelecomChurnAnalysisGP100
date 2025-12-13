@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Churn Predictions - Customer Analytics</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/predictions.css">
+    <script src="https://cdn.plot.ly/plotly-2.26.0.min.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1>Customer Churn Analytics</h1>
+            </div>
+            <div class="nav-links">
+                <a href="predictions.html" class="nav-link active">Predictions</a>
+                <a href="complaints.html" class="nav-link">Complaints</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Predictions Content -->
+    <main class="predictions-main">
+        <div class="predictions-header">
+            <h1>Churn Prediction Engine</h1>
+            <p>Predict customer churn probability using machine learning models</p>
+        </div>
+
+        <!-- Key Metrics -->
+        <section class="metrics-section">
+            <div class="metrics-grid">
+                <div class="metric-card primary">
+                    <div class="metric-value" id="total-customers">5,000</div>
+                    <div class="metric-label">Total Customers</div>
+                </div>
+                <div class="metric-card secondary">
+                    <div class="metric-value" id="churn-rate">34.2%</div>
+                    <div class="metric-label">Average Churn Rate</div>
+                </div>
+                <div class="metric-card tertiary">
+                    <div class="metric-value" id="revenue-impact">₹1.5Cr</div>
+                    <div class="metric-label">Impacted Revenue From Lost Customers</div>
+                </div>
+            </div>
+            </div>
+        </section>
+
+        <!-- Prediction Form -->
+        <section class="prediction-form-section">
+            <div class="form-container">
+                <div class="form-header">
+                    <h2>Customer Information</h2>
+                    <p>Enter customer details to predict churn probability</p>
+                </div>
+
+                <form id="prediction-form" class="prediction-form">
+                    <!-- Demographics Section -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">👤 Demographics</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="gender">Gender </label>
+                                <select id="gender" name="gender" required>
+                                    <option value="">Select Gender</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="senior-citizen">Senior Citizen </label>
+                                <select id="senior-citizen" name="SeniorCitizen" required>
+                                    <option value="">Select</option>
+                                    <option value="0">No</option>
+                                    <option value="1">Yes</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="partner">Has Partner </label>
+                                <select id="partner" name="Partner" required>
+                                    <option value="">Select</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="dependents">Has Dependents </label>
+                                <select id="dependents" name="Dependents" required>
+                                    <option value="">Select</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Service Information Section -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">📞 Service Information</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="tenure">Tenure (months) </label>
+                                <input type="number" id="tenure" name="tenure" min="0" max="100" placeholder="e.g., 24" required>
+                                <small class="field-help">How long has the customer been with the company?</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="phone-service">Phone Service </label>
+                                <select id="phone-service" name="PhoneService" required>
+                                    <option value="">Select</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="multiple-lines">Multiple Lines </label>
+                                <select id="multiple-lines" name="MultipleLines" required>
+                                    <option value="">Select</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                    <option value="No phone service">No phone service</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="internet-service">Internet Service </label>
+                                <select id="internet-service" name="InternetService" required>
+                                    <option value="">Select</option>
+                                    <option value="DSL">DSL</option>
+                                    <option value="Fiber optic">Fiber optic</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Additional Services Section -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">🛡️ Additional Services</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="online-security">Online Security </label>
+                                <select id="online-security" name="OnlineSecurity" required>
+                                    <option value="">Select</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                    <option value="No internet service">No internet service</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="online-backup">Online Backup </label>
+                                <select id="online-backup" name="OnlineBackup" required>
+                                    <option value="">Select</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                    <option value="No internet service">No internet service</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="device-protection">Device Protection </label>
+                                <select id="device-protection" name="DeviceProtection" required>
+                                    <option value="">Select</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                    <option value="No internet service">No internet service</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tech-support">Tech Support </label>
+                                <select id="tech-support" name="TechSupport" required>
+                                    <option value="">Select</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                    <option value="No internet service">No internet service</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contract & Billing Section -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">📄 Contract & Billing</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="contract">Contract Type </label>
+                                <select id="contract" name="Contract" required>
+                                    <option value="">Select Contract</option>
+                                    <option value="Month-to-month">Month-to-month</option>
+                                    <option value="One year">One year</option>
+                                    <option value="Two year">Two year</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="paperless-billing">Paperless Billing </label>
+                                <select id="paperless-billing" name="PaperlessBilling" required>
+                                    <option value="">Select</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="payment-method">Payment Method </label>
+                                <select id="payment-method" name="PaymentMethod" required>
+                                    <option value="">Select Payment Method</option>
+                                    <option value="Electronic check">Electronic check</option>
+                                    <option value="Mailed check">Mailed check</option>
+                                    <option value="Bank transfer (automatic)">Bank transfer (automatic)</option>
+                                    <option value="Credit card (automatic)">Credit card (automatic)</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Billing Information Section -->
+                    <div class="form-section">
+                        <h3 class="form-section-title">💰 Billing Information</h3>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="monthly-charges">Monthly Charges (₹) </label>
+                                <input type="number" id="monthly-charges" name="MonthlyCharges" step="1" min="0" max="16600" placeholder="e.g., 2500" required>
+                                <small class="field-help">Current monthly bill amount</small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="total-charges">Total Charges (₹) </label>
+                                <input type="number" id="total-charges" name="TotalCharges" step="1" min="0" max="830000" placeholder="e.g., 60000" required>
+                                <small class="field-help">Total amount paid to date</small>
+                            </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary btn-large">
+                            🎯 Predict Churn Probability
+                        </button>
+                        <button type="reset" class="btn btn-secondary">
+                            🔄 Reset Form
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Prediction Results -->
+        <section id="prediction-results" class="prediction-results hidden">
+            <div class="results-container">
+                <div class="results-header">
+                    <h2>Prediction Results</h2>
+                    <button id="clear-results-btn" class="btn btn-secondary btn-mini" title="Clear current results">
+                        🗑️ Clear Results
+                    </button>
+                </div>
+
+                <div class="results-grid">
+                    <!-- Model Confidence -->
+                    <div class="result-card">
+                        <div class="result-icon">📊</div>
+                        <div class="result-content">
+                            <h3>Model Confidence</h3>
+                            <div class="result-value" id="model-confidence">--</div>
+                            <div class="confidence-bar">
+                                <div class="confidence-fill" id="confidence-fill"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Prediction (Center) -->
+                    <div class="result-card primary">
+                        <div class="result-icon" id="result-icon">🎯</div>
+                        <div class="result-content">
+                            <h3>Churn Probability</h3>
+                            <div class="result-value" id="churn-probability">--</div>
+                            <div class="result-status" id="churn-status">--</div>
+                        </div>
+                    </div>
+
+                    <!-- Risk Level -->
+                    <div class="result-card">
+                        <div class="result-icon" id="risk-icon">⚠️</div>
+                        <div class="result-content">
+                            <h3>Risk Level</h3>
+                            <div class="result-value" id="risk-level">--</div>
+                            <div class="risk-description" id="risk-description">--</div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </section>
+
+
+    </main>
+
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="loading-spinner"></div>
+        <p>Processing prediction...</p>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/utils.js"></script>
+    <script src="assets/js/predictions.js"></script>
+    
+    <!-- Protection script to prevent global scripts from overwriting template values -->
+    <script>
+        // Protect template values from being overwritten
+        const TEMPLATE_VALUES = {
+            'total-customers': '5,000',
+            'churn-rate': '34.2%',
+            'revenue-impact': '₹1.5Cr'
+        };
+        
+        // Override any attempts to modify these elements
+        function protectTemplateValues() {
+            Object.keys(TEMPLATE_VALUES).forEach(id => {
+                const element = document.getElementById(id);
+                if (element && element.textContent !== TEMPLATE_VALUES[id]) {
+                    console.log(`🛡️ Protecting ${id} from being overwritten`);
+                    element.textContent = TEMPLATE_VALUES[id];
+                    element.style.color = '#ffffff'; // Ensure proper styling
+                }
+            });
+        }
+        
+        // Run protection every 2 seconds to prevent overwrites
+        setInterval(protectTemplateValues, 2000);
+        
+        // Also run immediately
+        setTimeout(protectTemplateValues, 100);
+        
+        console.log('🛡️ Template value protection enabled');
+    </script>
+    
+
+</body>
+</html>

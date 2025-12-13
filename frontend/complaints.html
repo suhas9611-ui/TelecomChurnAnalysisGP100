@@ -3,202 +3,306 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Complaints Dashboard</title>
+    <title>Customer Complaints - Analytics Dashboard</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/complaints.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <link rel="stylesheet" href="assets/css/complaints.css">
     <script src="https://cdn.plot.ly/plotly-2.26.0.min.js"></script>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container">
-            <h1 class="header-title">
-                <span class="icon">📋</span>
-                <span>Customer Complaints Dashboard</span>
-            </h1>
-            <nav class="header-nav">
-                <a href="index.html" class="nav-link">🏠 Churn Dashboard</a>
-                <a href="complaints.html" class="nav-link active">📋 Complaints</a>
-            </nav>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1>Customer Churn Analytics</h1>
+            </div>
+            <div class="nav-links">
+                <a href="predictions.html" class="nav-link">Predictions</a>
+                <a href="complaints.html" class="nav-link active">Complaints</a>
+            </div>
         </div>
-    </header>
+    </nav>
 
-    <!-- Main Content -->
-    <main class="main-content">
-        <div class="container">
-            
-            <!-- Metrics Section -->
-            <section class="metrics-section">
-                <div class="metric-card">
-                    <div class="metric-icon">📊</div>
-                    <div class="metric-content">
-                        <h3 class="metric-label">Total Complaints</h3>
-                        <p class="metric-value" id="total-complaints">-</p>
-                    </div>
-                </div>
+    <!-- Complaints Content -->
+    <main class="complaints-main">
+        <div class="complaints-header">
+            <h1>Complaints Analytics Dashboard</h1>
+            <p>Monitor and analyze customer feedback and sentiment</p>
+            <div class="complaints-controls">
                 
-                <div class="metric-card">
-                    <div class="metric-icon">😠</div>
-                    <div class="metric-content">
-                        <h3 class="metric-label">Negative Sentiment</h3>
-                        <p class="metric-value" id="negative-complaints">-</p>
-                    </div>
-                </div>
-                
-                <div class="metric-card">
-                    <div class="metric-icon">😐</div>
-                    <div class="metric-content">
-                        <h3 class="metric-label">Neutral Sentiment</h3>
-                        <p class="metric-value" id="neutral-complaints">-</p>
-                    </div>
-                </div>
-                
-                <div class="metric-card">
-                    <div class="metric-icon">😊</div>
-                    <div class="metric-content">
-                        <h3 class="metric-label">Positive Sentiment</h3>
-                        <p class="metric-value" id="positive-complaints">-</p>
-                    </div>
-                </div>
-            </section>
+            </div>
+        </div>
 
-            <hr class="divider">
-
-            <!-- Charts Section -->
-            <section class="charts-section">
-                <h2 class="section-title">📊 Complaints Analysis</h2>
-                <div id="complaints-charts-container" class="charts-grid">
-                    <div class="loading">Loading charts...</div>
-                </div>
-            </section>
-
-            <hr class="divider">
-
-            <!-- Complaints Table Section -->
-            <section class="complaints-table-section">
-                <h2 class="section-title">📋 Recent Complaints</h2>
-                
-                <!-- Filters -->
-                <div class="filters-container">
-                    <div class="filter-group">
-                        <label for="filter-sentiment">Sentiment:</label>
-                        <select id="filter-sentiment">
-                            <option value="all">All</option>
-                            <option value="Negative">Negative</option>
-                            <option value="Neutral">Neutral</option>
-                            <option value="Positive">Positive</option>
-                        </select>
-                    </div>
-                    
-                    <div class="filter-group">
-                        <label for="filter-category">Category:</label>
-                        <select id="filter-category">
-                            <option value="all">All</option>
-                        </select>
-                    </div>
-                    
-                    <div class="filter-group">
-                        <label for="filter-channel">Channel:</label>
-                        <select id="filter-channel">
-                            <option value="all">All</option>
-                        </select>
-                    </div>
-                    
-                    <button id="apply-filters" class="btn btn-primary btn-mini">Apply Filters</button>
-                    <button id="reset-filters" class="btn btn-secondary btn-mini">Reset</button>
-                </div>
-                
-                <!-- Complaints Table -->
-                <div class="table-container">
-                    <table class="complaints-table">
-                        <thead>
-                            <tr>
-                                <th>Complaint ID</th>
-                                <th>Customer ID</th>
-                                <th>Date</th>
-                                <th>Category</th>
-                                <th>Channel</th>
-                                <th>Sentiment</th>
-                                <th>Complaint Text</th>
-                            </tr>
-                        </thead>
-                        <tbody id="complaints-table-body">
-                            <tr>
-                                <td colspan="7" class="loading">Loading complaints...</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                
-                <!-- Pagination -->
-                <div class="pagination">
-                    <button id="prev-page" class="btn btn-secondary btn-mini">← Previous</button>
-                    <span id="page-info">Page 1 of 1</span>
-                    <button id="next-page" class="btn btn-secondary btn-mini">Next →</button>
-                </div>
-            </section>
-
-            <hr class="divider">
-
-            <!-- Sentiment Analysis Section -->
-            <section class="sentiment-section">
-                <h2 class="section-title">🔮 Analyze Complaint Sentiment</h2>
-                <p class="section-description">Enter a complaint text to predict its sentiment:</p>
-                
-                <div class="sentiment-form">
-                    <textarea id="complaint-text" 
-                              placeholder="Enter complaint text here..." 
-                              rows="4"></textarea>
-                    
-                    <button id="analyze-sentiment" class="btn btn-primary">
-                        🔍 Analyze Sentiment
-                    </button>
-                </div>
-
-                <!-- Sentiment Result -->
-                <div id="sentiment-result" class="prediction-result hidden">
-                    <h3 class="result-title">📊 Sentiment Analysis Result</h3>
-                    
-                    <div class="result-metric">
-                        <span class="result-label">Predicted Sentiment:</span>
-                        <span class="result-value" id="predicted-sentiment">-</span>
-                    </div>
-                    
-                    <div id="sentiment-status" class="result-status">
-                        <!-- Status will be inserted here -->
-                    </div>
-                    
-                    <div class="result-confidence">
-                        <div class="confidence-bar">
-                            <div id="sentiment-confidence-fill" class="confidence-fill"></div>
+        <!-- Complaints Overview -->
+        <section class="complaints-overview">
+            <div class="overview-grid">
+                <div class="overview-card">
+                    <div class="card-icon">📊</div>
+                    <div class="card-content">
+                        <h3>Total Complaints</h3>
+                        <div class="card-value" id="total-complaints">Loading...</div>
+                        <div class="card-change negative">
+                            
                         </div>
-                        <p class="confidence-text">
-                            Confidence: <span id="sentiment-confidence">-</span>
-                        </p>
                     </div>
                 </div>
-            </section>
-        </div>
+
+                <div class="overview-card negative-card">
+                    <div class="card-icon">😠</div>
+                    <div class="card-content">
+                        <h3>Negative Sentiment</h3>
+                        <div class="card-value" id="negative-complaints">Loading...</div>
+                        <div class="card-percentage" id="negative-percentage">--%</div>
+                        <div class="sentiment-bar">
+                            <div class="sentiment-fill negative-fill" id="negative-bar" style="width: 34%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="overview-card neutral-card">
+                    <div class="card-icon">😐</div>
+                    <div class="card-content">
+                        <h3>Neutral Sentiment</h3>
+                        <div class="card-value" id="neutral-complaints">Loading...</div>
+                        <div class="card-percentage" id="neutral-percentage">--%</div>
+                        <div class="sentiment-bar">
+                            <div class="sentiment-fill neutral-fill" id="neutral-bar" style="width: 49%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="overview-card positive-card">
+                    <div class="card-icon">😊</div>
+                    <div class="card-content">
+                        <h3>Positive Sentiment</h3>
+                        <div class="card-value" id="positive-complaints">Loading...</div>
+                        <div class="card-percentage" id="positive-percentage">--%</div>
+                        <div class="sentiment-bar">
+                            <div class="sentiment-fill positive-fill" id="positive-bar" style="width: 17%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Complaints Analytics -->
+        <section class="complaints-analytics">
+            <div class="analytics-grid">
+                <!-- Sentiment Trend -->
+                <div class="analytics-card full-width">
+                    <div class="card-header">
+                        <h3>Sentiment Trend Over Time</h3>
+                        <div class="card-controls">
+                            <select id="trend-period" class="control-select">
+                                <option value="7">Last 7 days</option>
+                                <option value="30">Last 30 days</option>
+                                <option value="90">Last 90 days</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="sentiment-trend-chart" class="chart-large"></div>
+                </div>
+
+                <!-- Complaints by Category -->
+                <div class="analytics-card">
+                    <div class="card-header">
+                        <h3>Complaints by Category</h3>
+                    </div>
+                    <div id="complaints-by-category-chart" class="chart-medium"></div>
+                </div>
+
+                <!-- Sentiment Distribution -->
+                <div class="analytics-card">
+                    <div class="card-header">
+                        <h3>Sentiment Distribution</h3>
+                    </div>
+                    <div id="sentiment-distribution-chart" class="chart-medium"></div>
+                </div>
+
+                <!-- Channel Analysis -->
+                <div class="analytics-card">
+                    <div class="card-header">
+                        <h3>Complaints by Channel</h3>
+                    </div>
+                    <div id="channel-analysis-chart" class="chart-medium"></div>
+                </div>
+
+                <!-- Resolution Time -->
+                <div class="analytics-card">
+                    <div class="card-header">
+                        <h3>Average Resolution Time</h3>
+                    </div>
+                    <div id="resolution-time-chart" class="chart-medium"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sentiment Analysis Tool -->
+        <section class="sentiment-analysis-section">
+            <div class="analysis-container">
+                <div class="analysis-header">
+                    <h2>Sentiment Analysis Tool</h2>
+                    <p>Analyze the sentiment of customer feedback in real-time</p>
+                </div>
+
+                <div class="analysis-form">
+                    <div class="form-group">
+                        <label for="complaint-text">Customer Feedback Text</label>
+                        <textarea 
+                            id="complaint-text" 
+                            placeholder="Enter customer complaint or feedback text here..."
+                            rows="6"
+                        ></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <button id="analyze-sentiment" class="btn btn-primary">
+                            🔍 Analyze Sentiment
+                        </button>
+                        <button id="clear-text" class="btn btn-secondary">
+                            🗑️ Clear Text
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Analysis Results -->
+                <div id="sentiment-results" class="sentiment-results hidden">
+                    <div class="results-header">
+                        <h3>Analysis Results</h3>
+                    </div>
+
+                    <div class="results-grid">
+                        <div class="result-card">
+                            <div class="result-icon" id="sentiment-icon">😐</div>
+                            <div class="result-content">
+                                <h4>Predicted Sentiment</h4>
+                                <div class="result-value" id="predicted-sentiment">Neutral</div>
+                            </div>
+                        </div>
+
+                        <div class="result-card">
+                            <div class="result-icon">📊</div>
+                            <div class="result-content">
+                                <h4>Confidence Score</h4>
+                                <div class="result-value" id="sentiment-confidence">85%</div>
+                                <div class="confidence-bar">
+                                    <div class="confidence-fill" id="sentiment-confidence-fill"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="result-card">
+                            <div class="result-icon">🏷️</div>
+                            <div class="result-content">
+                                <h4>Category</h4>
+                                <div class="result-value" id="predicted-category">Service</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Scores -->
+                    <div class="detailed-scores">
+                        <h4>Detailed Sentiment Scores</h4>
+                        <div class="scores-grid">
+                            <div class="score-item">
+                                <span class="score-label">Positive</span>
+                                <div class="score-bar">
+                                    <div class="score-fill positive" id="positive-score"></div>
+                                </div>
+                                <span class="score-value" id="positive-value">0%</span>
+                            </div>
+                            <div class="score-item">
+                                <span class="score-label">Neutral</span>
+                                <div class="score-bar">
+                                    <div class="score-fill neutral" id="neutral-score"></div>
+                                </div>
+                                <span class="score-value" id="neutral-value">0%</span>
+                            </div>
+                            <div class="score-item">
+                                <span class="score-label">Negative</span>
+                                <div class="score-bar">
+                                    <div class="score-fill negative" id="negative-score"></div>
+                                </div>
+                                <span class="score-value" id="negative-value">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Complaints Data Table -->
+        <section class="complaints-table-section">
+            <div class="table-header">
+                <h2>Recent Complaints</h2>
+                <div class="table-controls">
+                    <input type="text" id="search-complaints" placeholder="Search complaints..." class="search-input">
+                    <select id="filter-sentiment" class="control-select">
+                        <option value="all">All Sentiments</option>
+                        <option value="Positive">Positive</option>
+                        <option value="Neutral">Neutral</option>
+                        <option value="Negative">Negative</option>
+                    </select>
+                    <select id="filter-category" class="control-select">
+                        <option value="all">All Categories</option>
+                        <option value="Service">Service</option>
+                        <option value="Billing">Billing</option>
+                        <option value="Technical">Technical</option>
+                        <option value="Product">Product</option>
+                    </select>
+                    <select id="filter-channel" class="control-select">
+                        <option value="all">All Channels</option>
+                        <option value="Email">Email</option>
+                        <option value="Phone">Phone</option>
+                        <option value="Chat">Chat</option>
+                        <option value="Social Media">Social Media</option>
+                    </select>
+                    <button id="export-complaints" class="btn btn-secondary">Export CSV</button>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table id="complaints-table" class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Customer ID</th>
+                            <th>Date</th>
+                            <th>Category</th>
+                            <th>Channel</th>
+                            <th>Sentiment</th>
+                            <th>Status</th>
+                            <th>Complaint Text</th>
+                        </tr>
+                    </thead>
+                    <tbody id="complaints-table-body">
+                        <!-- Data will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-pagination">
+                <button id="prev-page" class="btn btn-secondary">Previous</button>
+                <span id="page-info">Page 1 of 10</span>
+                <button id="next-page" class="btn btn-secondary">Next</button>
+            </div>
+        </section>
     </main>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p>Built with ❤️ for data-driven decisions</p>
-        </div>
-    </footer>
-
-    <!-- Error Toast -->
-    <div id="error-toast" class="toast hidden">
-        <span id="error-message"></span>
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="loading-overlay hidden">
+        <div class="loading-spinner"></div>
+        <p>Loading complaints data...</p>
     </div>
 
-    <script src="js/config.js"></script>
-    <script src="js/api.js"></script>
-    <script src="js/complaints-charts.js"></script>
-    <script src="js/complaints.js"></script>
+    <!-- Scripts -->
+    <script src="assets/js/config.js"></script>
+    <script src="assets/js/api.js"></script>
+    <script src="assets/js/utils.js"></script>
+    <script src="assets/js/charts/base-charts.js"></script>
+    <script src="assets/js/charts/complaints-charts.js"></script>
+    <script src="assets/js/complaints.js"></script>
 </body>
 </html>
