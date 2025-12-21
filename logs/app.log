@@ -316,3 +316,70 @@
 2025-12-13 22:47:08,168 - werkzeug - INFO - 127.0.0.1 - - [13/Dec/2025 22:47:08] "POST /predict HTTP/1.1" 200 -
 2025-12-13 22:47:14,558 - werkzeug - INFO - 127.0.0.1 - - [13/Dec/2025 22:47:14] "OPTIONS /predict HTTP/1.1" 200 -
 2025-12-13 22:47:14,823 - werkzeug - INFO - 127.0.0.1 - - [13/Dec/2025 22:47:14] "POST /predict HTTP/1.1" 200 -
+2025-12-20 18:16:46,118 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:5001
+2025-12-20 18:16:46,119 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-20 18:16:46,121 - werkzeug - INFO -  * Restarting with stat
+2025-12-20 18:16:47,907 - werkzeug - WARNING -  * Debugger is active!
+2025-12-20 18:16:47,944 - werkzeug - INFO -  * Debugger PIN: 135-236-246
+2025-12-20 18:17:21,954 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://localhost:5001
+2025-12-20 18:17:21,954 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-12-20 18:17:21,956 - werkzeug - INFO -  * Restarting with stat
+2025-12-20 18:17:23,521 - werkzeug - WARNING -  * Debugger is active!
+2025-12-20 18:17:23,527 - werkzeug - INFO -  * Debugger PIN: 135-236-246
+2025-12-20 18:17:35,124 - werkzeug - INFO - 127.0.0.1 - - [20/Dec/2025 18:17:35] "GET / HTTP/1.1" 200 -
+2025-12-20 18:17:35,184 - werkzeug - INFO - 127.0.0.1 - - [20/Dec/2025 18:17:35] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-12-20 18:18:17,478 - werkzeug - INFO - 127.0.0.1 - - [20/Dec/2025 18:18:17] "GET / HTTP/1.1" 200 -
+2025-12-20 18:19:27,675 - werkzeug - INFO -  * Detected change in 'C:\\Users\\royal\\Downloads\\Sample Churn analysis PYNB\\run_simple.py', reloading
+2025-12-20 18:19:28,112 - werkzeug - INFO -  * Restarting with stat
+2025-12-20 18:19:31,092 - werkzeug - WARNING -  * Debugger is active!
+2025-12-20 18:19:31,100 - werkzeug - INFO -  * Debugger PIN: 135-236-246
+2025-12-20 18:21:58,780 - werkzeug - INFO - 127.0.0.1 - - [20/Dec/2025 18:21:58] "OPTIONS /complaints_data HTTP/1.1" 200 -
+2025-12-20 18:21:59,045 - backend.utils.data_processor - INFO - Loading complaints data from: data\complaints.csv
+2025-12-20 18:21:59,099 - backend.utils.data_processor - INFO - Using sentiment from column 'SentimentLabel': {'Positive': np.int64(1702), 'Neutral': np.int64(1650), 'Negative': np.int64(1648)}
+2025-12-20 18:21:59,101 - backend.utils.data_processor - INFO - Complaints overview - Total: 5000, Negative: 1648, Neutral: 1650, Positive: 1702
+2025-12-20 18:21:59,120 - backend.utils.data_processor - INFO - Generated sentiment trend chart with 30 days
+2025-12-20 18:21:59,122 - backend.utils.data_processor - INFO - Generated complaints by category chart with 8 categories
+2025-12-20 18:21:59,123 - backend.utils.data_processor - INFO - Generated sentiment distribution: Positive=1702, Neutral=1650, Negative=1648
+2025-12-20 18:21:59,124 - backend.utils.data_processor - INFO - Generated channel analysis chart with 5 channels
+2025-12-20 18:21:59,126 - backend.utils.data_processor - INFO - Generated resolution time chart for 8 categories
+2025-12-20 18:21:59,126 - backend.utils.data_processor - INFO - Generated charts: ['sentimentTrend', 'complaintsByCategory', 'sentimentDistribution', 'channelAnalysis', 'resolutionTime']
+2025-12-20 18:21:59,136 - backend.utils.data_processor - INFO - Generated 100 real complaints from data
+2025-12-20 18:21:59,138 - werkzeug - INFO - 127.0.0.1 - - [20/Dec/2025 18:21:59] "GET /complaints_data HTTP/1.1" 200 -
+2025-12-20 18:22:18,245 - werkzeug - INFO - 127.0.0.1 - - [20/Dec/2025 18:22:18] "OPTIONS /complaints_data HTTP/1.1" 200 -
+2025-12-20 18:22:18,567 - backend.utils.data_processor - INFO - Loading complaints data from: data\complaints.csv
+2025-12-20 18:22:18,586 - backend.utils.data_processor - INFO - Using sentiment from column 'SentimentLabel': {'Positive': np.int64(1702), 'Neutral': np.int64(1650), 'Negative': np.int64(1648)}
+2025-12-20 18:22:18,587 - backend.utils.data_processor - INFO - Complaints overview - Total: 5000, Negative: 1648, Neutral: 1650, Positive: 1702
+2025-12-20 18:22:18,589 - backend.utils.data_processor - INFO - Generated sentiment trend chart with 30 days
+2025-12-20 18:22:18,591 - backend.utils.data_processor - INFO - Generated complaints by category chart with 8 categories
+2025-12-20 18:22:18,592 - backend.utils.data_processor - INFO - Generated sentiment distribution: Positive=1702, Neutral=1650, Negative=1648
+2025-12-20 18:22:18,595 - backend.utils.data_processor - INFO - Generated channel analysis chart with 5 channels
+2025-12-20 18:22:18,596 - backend.utils.data_processor - INFO - Generated resolution time chart for 8 categories
+2025-12-20 18:22:18,596 - backend.utils.data_processor - INFO - Generated charts: ['sentimentTrend', 'complaintsByCategory', 'sentimentDistribution', 'channelAnalysis', 'resolutionTime']
+2025-12-20 18:22:18,605 - backend.utils.data_processor - INFO - Generated 100 real complaints from data
+2025-12-20 18:22:18,607 - werkzeug - INFO - 127.0.0.1 - - [20/Dec/2025 18:22:18] "GET /complaints_data HTTP/1.1" 200 -
+2025-12-20 18:33:04,017 - werkzeug - INFO - 127.0.0.1 - - [20/Dec/2025 18:33:04] "OPTIONS /complaints_data HTTP/1.1" 200 -
+2025-12-20 18:33:04,286 - backend.utils.data_processor - INFO - Loading complaints data from: data\complaints.csv
+2025-12-20 18:33:04,313 - backend.utils.data_processor - INFO - Using sentiment from column 'SentimentLabel': {'Positive': np.int64(1702), 'Neutral': np.int64(1650), 'Negative': np.int64(1648)}
+2025-12-20 18:33:04,314 - backend.utils.data_processor - INFO - Complaints overview - Total: 5000, Negative: 1648, Neutral: 1650, Positive: 1702
+2025-12-20 18:33:04,316 - backend.utils.data_processor - INFO - Generated sentiment trend chart with 30 days
+2025-12-20 18:33:04,317 - backend.utils.data_processor - INFO - Generated complaints by category chart with 8 categories
+2025-12-20 18:33:04,318 - backend.utils.data_processor - INFO - Generated sentiment distribution: Positive=1702, Neutral=1650, Negative=1648
+2025-12-20 18:33:04,320 - backend.utils.data_processor - INFO - Generated channel analysis chart with 5 channels
+2025-12-20 18:33:04,321 - backend.utils.data_processor - INFO - Generated resolution time chart for 8 categories
+2025-12-20 18:33:04,322 - backend.utils.data_processor - INFO - Generated charts: ['sentimentTrend', 'complaintsByCategory', 'sentimentDistribution', 'channelAnalysis', 'resolutionTime']
+2025-12-20 18:33:04,333 - backend.utils.data_processor - INFO - Generated 100 real complaints from data
+2025-12-20 18:33:04,335 - werkzeug - INFO - 127.0.0.1 - - [20/Dec/2025 18:33:04] "GET /complaints_data HTTP/1.1" 200 -
+2025-12-20 18:43:48,468 - werkzeug - INFO - 127.0.0.1 - - [20/Dec/2025 18:43:48] "OPTIONS /complaints_data HTTP/1.1" 200 -
+2025-12-20 18:43:48,724 - backend.utils.data_processor - INFO - Loading complaints data from: data\complaints.csv
+2025-12-20 18:43:48,752 - backend.utils.data_processor - INFO - Using sentiment from column 'SentimentLabel': {'Positive': np.int64(1702), 'Neutral': np.int64(1650), 'Negative': np.int64(1648)}
+2025-12-20 18:43:48,752 - backend.utils.data_processor - INFO - Complaints overview - Total: 5000, Negative: 1648, Neutral: 1650, Positive: 1702
+2025-12-20 18:43:48,756 - backend.utils.data_processor - INFO - Generated sentiment trend chart with 30 days
+2025-12-20 18:43:48,758 - backend.utils.data_processor - INFO - Generated complaints by category chart with 8 categories
+2025-12-20 18:43:48,760 - backend.utils.data_processor - INFO - Generated sentiment distribution: Positive=1702, Neutral=1650, Negative=1648
+2025-12-20 18:43:48,762 - backend.utils.data_processor - INFO - Generated channel analysis chart with 5 channels
+2025-12-20 18:43:48,763 - backend.utils.data_processor - INFO - Generated resolution time chart for 8 categories
+2025-12-20 18:43:48,763 - backend.utils.data_processor - INFO - Generated charts: ['sentimentTrend', 'complaintsByCategory', 'sentimentDistribution', 'channelAnalysis', 'resolutionTime']
+2025-12-20 18:43:48,771 - backend.utils.data_processor - INFO - Generated 100 real complaints from data
+2025-12-20 18:43:48,777 - werkzeug - INFO - 127.0.0.1 - - [20/Dec/2025 18:43:48] "GET /complaints_data HTTP/1.1" 200 -
